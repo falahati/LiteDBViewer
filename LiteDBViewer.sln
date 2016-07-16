@@ -5,6 +5,11 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDBViewer", "LiteDBViewer\LiteDBViewer.csproj", "{6A754752-6732-43CD-B316-F17961B4D525}"
 EndProject
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "LiteDBViewer.Setup", "LiteDBViewer.Setup\LiteDBViewer.Setup.isproj", "{54AC2621-4B16-4848-882A-09A480CABC1E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6A754752-6732-43CD-B316-F17961B4D525} = {6A754752-6732-43CD-B316-F17961B4D525}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,9 @@ Global
 		{6A754752-6732-43CD-B316-F17961B4D525}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A754752-6732-43CD-B316-F17961B4D525}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A754752-6732-43CD-B316-F17961B4D525}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54AC2621-4B16-4848-882A-09A480CABC1E}.Debug|Any CPU.ActiveCfg = DVD-5
+		{54AC2621-4B16-4848-882A-09A480CABC1E}.Release|Any CPU.ActiveCfg = SingleImage
+		{54AC2621-4B16-4848-882A-09A480CABC1E}.Release|Any CPU.Build.0 = SingleImage
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
