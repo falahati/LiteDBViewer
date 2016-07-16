@@ -32,8 +32,8 @@ namespace LiteDBViewer
 
         private void ShowData()
         {
-            textBox.Visible = !(pictureBox.Visible = rb_Image.Checked);
-            if (rb_Image.Checked)
+            textBox.Visible = !(pictureBox.Visible = rb_image.Checked);
+            if (rb_image.Checked)
             {
                 try
                 {
@@ -46,11 +46,23 @@ namespace LiteDBViewer
                     pictureBox.Image = pictureBox.ErrorImage;
                 }
             }
-            else if (rb_Ascii.Checked)
+            else if (rb_ascii.Checked)
             {
                 textBox.Text = Encoding.ASCII.GetString(_cell.AsBinary);
             }
-            else if (rb_UTF.Checked)
+            else if (rb_utf7.Checked)
+            {
+                textBox.Text = Encoding.UTF7.GetString(_cell.AsBinary);
+            }
+            else if (rb_utf32.Checked)
+            {
+                textBox.Text = Encoding.UTF32.GetString(_cell.AsBinary);
+            }
+            else if (rb_unicode.Checked)
+            {
+                textBox.Text = Encoding.Unicode.GetString(_cell.AsBinary);
+            }
+            else if (rb_utf8.Checked)
             {
                 textBox.Text = Encoding.UTF8.GetString(_cell.AsBinary);
             }

@@ -28,66 +28,69 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rb_Image = new System.Windows.Forms.RadioButton();
-            this.rb_UTF = new System.Windows.Forms.RadioButton();
-            this.rb_Ascii = new System.Windows.Forms.RadioButton();
-            this.rb_Hex = new System.Windows.Forms.RadioButton();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BinaryViewForm));
+            this.rb_image = new System.Windows.Forms.RadioButton();
+            this.rb_utf8 = new System.Windows.Forms.RadioButton();
+            this.rb_ascii = new System.Windows.Forms.RadioButton();
+            this.rb_hex = new System.Windows.Forms.RadioButton();
             this.textBox = new System.Windows.Forms.TextBox();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.rb_utf32 = new System.Windows.Forms.RadioButton();
+            this.rb_utf7 = new System.Windows.Forms.RadioButton();
+            this.rb_unicode = new System.Windows.Forms.RadioButton();
             this.btn_close = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // rb_Image
+            // rb_image
             // 
-            this.rb_Image.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.rb_Image.AutoSize = true;
-            this.rb_Image.Location = new System.Drawing.Point(600, 81);
-            this.rb_Image.Name = "rb_Image";
-            this.rb_Image.Size = new System.Drawing.Size(94, 17);
-            this.rb_Image.TabIndex = 11;
-            this.rb_Image.Text = "View as Image";
-            this.rb_Image.UseVisualStyleBackColor = true;
-            this.rb_Image.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            this.rb_image.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rb_image.AutoSize = true;
+            this.rb_image.Location = new System.Drawing.Point(593, 150);
+            this.rb_image.Name = "rb_image";
+            this.rb_image.Size = new System.Drawing.Size(94, 17);
+            this.rb_image.TabIndex = 7;
+            this.rb_image.Text = "View as Image";
+            this.rb_image.UseVisualStyleBackColor = true;
+            this.rb_image.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
             // 
-            // rb_UTF
+            // rb_utf8
             // 
-            this.rb_UTF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.rb_UTF.AutoSize = true;
-            this.rb_UTF.Location = new System.Drawing.Point(600, 58);
-            this.rb_UTF.Name = "rb_UTF";
-            this.rb_UTF.Size = new System.Drawing.Size(92, 17);
-            this.rb_UTF.TabIndex = 10;
-            this.rb_UTF.Text = "View as UTF8";
-            this.rb_UTF.UseVisualStyleBackColor = true;
-            this.rb_UTF.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            this.rb_utf8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rb_utf8.AutoSize = true;
+            this.rb_utf8.Location = new System.Drawing.Point(593, 79);
+            this.rb_utf8.Name = "rb_utf8";
+            this.rb_utf8.Size = new System.Drawing.Size(92, 17);
+            this.rb_utf8.TabIndex = 4;
+            this.rb_utf8.Text = "View as UTF8";
+            this.rb_utf8.UseVisualStyleBackColor = true;
+            this.rb_utf8.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
             // 
-            // rb_Ascii
+            // rb_ascii
             // 
-            this.rb_Ascii.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.rb_Ascii.AutoSize = true;
-            this.rb_Ascii.Location = new System.Drawing.Point(600, 35);
-            this.rb_Ascii.Name = "rb_Ascii";
-            this.rb_Ascii.Size = new System.Drawing.Size(87, 17);
-            this.rb_Ascii.TabIndex = 9;
-            this.rb_Ascii.Text = "View as Ascii";
-            this.rb_Ascii.UseVisualStyleBackColor = true;
-            this.rb_Ascii.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            this.rb_ascii.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rb_ascii.AutoSize = true;
+            this.rb_ascii.Location = new System.Drawing.Point(593, 33);
+            this.rb_ascii.Name = "rb_ascii";
+            this.rb_ascii.Size = new System.Drawing.Size(87, 17);
+            this.rb_ascii.TabIndex = 2;
+            this.rb_ascii.Text = "View as Ascii";
+            this.rb_ascii.UseVisualStyleBackColor = true;
+            this.rb_ascii.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
             // 
-            // rb_Hex
+            // rb_hex
             // 
-            this.rb_Hex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.rb_Hex.AutoSize = true;
-            this.rb_Hex.Checked = true;
-            this.rb_Hex.Location = new System.Drawing.Point(600, 12);
-            this.rb_Hex.Name = "rb_Hex";
-            this.rb_Hex.Size = new System.Drawing.Size(84, 17);
-            this.rb_Hex.TabIndex = 8;
-            this.rb_Hex.TabStop = true;
-            this.rb_Hex.Text = "View as Hex";
-            this.rb_Hex.UseVisualStyleBackColor = true;
-            this.rb_Hex.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            this.rb_hex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rb_hex.AutoSize = true;
+            this.rb_hex.Checked = true;
+            this.rb_hex.Location = new System.Drawing.Point(593, 10);
+            this.rb_hex.Name = "rb_hex";
+            this.rb_hex.Size = new System.Drawing.Size(84, 17);
+            this.rb_hex.TabIndex = 1;
+            this.rb_hex.TabStop = true;
+            this.rb_hex.Text = "View as Hex";
+            this.rb_hex.UseVisualStyleBackColor = true;
+            this.rb_hex.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
             // 
             // textBox
             // 
@@ -102,7 +105,7 @@
             this.textBox.ReadOnly = true;
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox.Size = new System.Drawing.Size(572, 439);
-            this.textBox.TabIndex = 6;
+            this.textBox.TabIndex = 0;
             this.textBox.WordWrap = false;
             // 
             // pictureBox
@@ -119,6 +122,42 @@
             this.pictureBox.TabIndex = 12;
             this.pictureBox.TabStop = false;
             this.pictureBox.Visible = false;
+            // 
+            // rb_utf32
+            // 
+            this.rb_utf32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rb_utf32.AutoSize = true;
+            this.rb_utf32.Location = new System.Drawing.Point(593, 102);
+            this.rb_utf32.Name = "rb_utf32";
+            this.rb_utf32.Size = new System.Drawing.Size(98, 17);
+            this.rb_utf32.TabIndex = 5;
+            this.rb_utf32.Text = "View as UTF32";
+            this.rb_utf32.UseVisualStyleBackColor = true;
+            this.rb_utf32.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            // 
+            // rb_utf7
+            // 
+            this.rb_utf7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rb_utf7.AutoSize = true;
+            this.rb_utf7.Location = new System.Drawing.Point(593, 56);
+            this.rb_utf7.Name = "rb_utf7";
+            this.rb_utf7.Size = new System.Drawing.Size(92, 17);
+            this.rb_utf7.TabIndex = 3;
+            this.rb_utf7.Text = "View as UTF7";
+            this.rb_utf7.UseVisualStyleBackColor = true;
+            this.rb_utf7.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            // 
+            // rb_unicode
+            // 
+            this.rb_unicode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rb_unicode.AutoSize = true;
+            this.rb_unicode.Location = new System.Drawing.Point(593, 127);
+            this.rb_unicode.Name = "rb_unicode";
+            this.rb_unicode.Size = new System.Drawing.Size(105, 17);
+            this.rb_unicode.TabIndex = 6;
+            this.rb_unicode.Text = "View as Unicode";
+            this.rb_unicode.UseVisualStyleBackColor = true;
+            this.rb_unicode.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
             // 
             // btn_close
             // 
@@ -138,13 +177,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btn_close;
             this.ClientSize = new System.Drawing.Size(704, 461);
-            this.Controls.Add(this.rb_Image);
-            this.Controls.Add(this.rb_UTF);
-            this.Controls.Add(this.rb_Ascii);
-            this.Controls.Add(this.rb_Hex);
-            this.Controls.Add(this.textBox);
             this.Controls.Add(this.btn_close);
+            this.Controls.Add(this.rb_unicode);
+            this.Controls.Add(this.rb_utf32);
+            this.Controls.Add(this.rb_utf7);
+            this.Controls.Add(this.rb_image);
+            this.Controls.Add(this.rb_utf8);
+            this.Controls.Add(this.rb_ascii);
+            this.Controls.Add(this.rb_hex);
             this.Controls.Add(this.pictureBox);
+            this.Controls.Add(this.textBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(350, 250);
@@ -161,12 +203,15 @@
 
         #endregion
 
-        private System.Windows.Forms.RadioButton rb_Image;
-        private System.Windows.Forms.RadioButton rb_UTF;
-        private System.Windows.Forms.RadioButton rb_Ascii;
-        private System.Windows.Forms.RadioButton rb_Hex;
+        private System.Windows.Forms.RadioButton rb_image;
+        private System.Windows.Forms.RadioButton rb_utf8;
+        private System.Windows.Forms.RadioButton rb_ascii;
+        private System.Windows.Forms.RadioButton rb_hex;
         private System.Windows.Forms.TextBox textBox;
         private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.RadioButton rb_utf32;
+        private System.Windows.Forms.RadioButton rb_utf7;
+        private System.Windows.Forms.RadioButton rb_unicode;
         private System.Windows.Forms.Button btn_close;
     }
 }
