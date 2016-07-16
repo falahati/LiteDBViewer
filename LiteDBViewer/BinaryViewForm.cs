@@ -63,7 +63,7 @@ namespace LiteDBViewer
                 for (var i = 0; i < bytes.Length; i++)
                 {
                     textBox.Text += bytes[i].ToString("X2");
-                    chars += Convert.ToChar(bytes[i]);
+                    chars += bytes[i] > 0x7F ? '.' : (char) bytes[i];
                     l = (i + 1)%16;
                     if (l == 0)
                     {
