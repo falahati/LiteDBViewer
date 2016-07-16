@@ -142,6 +142,7 @@ namespace LiteDBViewer
                     lb_Collections.Items.Add("[QUERY]");
                 }
                 lb_Collections.SelectedItem = "[QUERY]";
+                _db.Commit();
             }
         }
 
