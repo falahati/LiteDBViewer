@@ -32,6 +32,7 @@
             this.rb_UTF = new System.Windows.Forms.RadioButton();
             this.rb_Ascii = new System.Windows.Forms.RadioButton();
             this.rb_Hex = new System.Windows.Forms.RadioButton();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BinaryViewForm));
             this.textBox = new System.Windows.Forms.TextBox();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
