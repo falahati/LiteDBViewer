@@ -129,6 +129,7 @@
             this.Controls.Add(this.rb_Hex);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.pictureBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(350, 250);
             this.Name = "BinaryViewForm";

@@ -112,6 +112,7 @@
             this.Controls.Add(this.txt_query);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.lb_Collections);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 375);
             this.Name = "MainForm";
             this.ShowIcon = false;

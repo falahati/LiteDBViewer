@@ -128,6 +128,7 @@
             this.Controls.Add(this.rb_String);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.webBrowser);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(350, 250);
             this.Name = "StringViewForm";
