@@ -64,5 +64,10 @@ namespace LiteDBViewer
                 textBox.Text = _cell.AsString;
             }
         }
+
+        private void Close_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

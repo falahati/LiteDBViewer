@@ -35,6 +35,7 @@
             this.rb_XML = new System.Windows.Forms.RadioButton();
             this.rb_Json = new System.Windows.Forms.RadioButton();
             this.rb_HTML = new System.Windows.Forms.RadioButton();
+            this.btn_close = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox
@@ -118,11 +119,25 @@
             this.rb_HTML.UseVisualStyleBackColor = true;
             this.rb_HTML.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
             // 
+            // btn_close
+            // 
+            this.btn_close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_close.Location = new System.Drawing.Point(590, 428);
+            this.btn_close.Name = "btn_close";
+            this.btn_close.Size = new System.Drawing.Size(105, 23);
+            this.btn_close.TabIndex = 6;
+            this.btn_close.Text = "&Close";
+            this.btn_close.UseVisualStyleBackColor = true;
+            this.btn_close.Click += new System.EventHandler(this.Close_Click);
+            // 
             // StringViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btn_close;
             this.ClientSize = new System.Drawing.Size(704, 461);
+            this.Controls.Add(this.btn_close);
             this.Controls.Add(this.rb_HTML);
             this.Controls.Add(this.rb_Json);
             this.Controls.Add(this.rb_XML);
@@ -150,5 +165,6 @@
         private System.Windows.Forms.RadioButton rb_XML;
         private System.Windows.Forms.RadioButton rb_Json;
         private System.Windows.Forms.RadioButton rb_HTML;
+        private System.Windows.Forms.Button btn_close;
     }
 }

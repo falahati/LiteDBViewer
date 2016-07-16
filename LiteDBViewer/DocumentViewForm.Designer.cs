@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentViewForm));
             this.listBox = new System.Windows.Forms.ListBox();
+            this.btn_close = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox
@@ -44,18 +45,33 @@
             this.listBox.Location = new System.Drawing.Point(12, 11);
             this.listBox.Name = "listBox";
             this.listBox.Size = new System.Drawing.Size(260, 349);
-            this.listBox.TabIndex = 1;
             this.listBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listBox_MouseUp);
+            this.listBox.TabIndex = 0;
+            // 
+            // btn_close
+            // 
+            this.btn_close.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_close.Location = new System.Drawing.Point(12, 366);
+            this.btn_close.Name = "btn_close";
+            this.btn_close.Size = new System.Drawing.Size(260, 23);
+            this.btn_close.TabIndex = 1;
+            this.btn_close.Text = "&Close";
+            this.btn_close.UseVisualStyleBackColor = true;
+            this.btn_close.Click += new System.EventHandler(this.Close_Click);
             // 
             // DocumentViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 371);
+            this.CancelButton = this.btn_close;
+            this.ClientSize = new System.Drawing.Size(284, 401);
+            this.Controls.Add(this.btn_close);
             this.Controls.Add(this.listBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(300, 410);
+            this.MinimumSize = new System.Drawing.Size(300, 440);
             this.Name = "DocumentViewForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -68,5 +84,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.Button btn_close;
     }
 }

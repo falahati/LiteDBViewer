@@ -68,5 +68,10 @@ namespace LiteDBViewer
                 _contextMenus[listBox.SelectedIndex].Show(listBox, e.Location);
             }
         }
+
+        private void Close_Click(object sender, System.EventArgs e)
+        {
+            Close();
+        }
     }
 }

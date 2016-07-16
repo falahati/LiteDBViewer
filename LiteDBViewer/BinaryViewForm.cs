@@ -81,5 +81,10 @@ namespace LiteDBViewer
                 }
             }
         }
+        
+        private void Close_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
