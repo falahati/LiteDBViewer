@@ -57,6 +57,7 @@ namespace LiteDBViewer
             foreach (var form in forms)
             {
                 form.Show();
+                form.Activate();
             }
             Application.Run(new MultiFormApplicationContext(forms.ToArray()));
         }
