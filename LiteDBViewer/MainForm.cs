@@ -90,7 +90,7 @@ namespace LiteDBViewer
 
         private void dataGridView_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right || (e.Button == MouseButtons.Left && e.Clicks > 1))
             {
                 var currentMouseOver = dataGridView.HitTest(e.X, e.Y);
                 if (currentMouseOver.RowIndex >= 0)

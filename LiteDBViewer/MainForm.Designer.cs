@@ -63,6 +63,7 @@
             this.dataGridView.Size = new System.Drawing.Size(481, 259);
             this.dataGridView.TabIndex = 1;
             this.dataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
+            this.dataGridView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
             // 
             // txt_query
             // 

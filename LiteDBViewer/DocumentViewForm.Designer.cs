@@ -45,8 +45,9 @@
             this.listBox.Location = new System.Drawing.Point(12, 11);
             this.listBox.Name = "listBox";
             this.listBox.Size = new System.Drawing.Size(260, 349);
-            this.listBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listBox_MouseUp);
             this.listBox.TabIndex = 0;
+            this.listBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox_Mouse);
+            this.listBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listBox_Mouse);
             // 
             // btn_close
             // 

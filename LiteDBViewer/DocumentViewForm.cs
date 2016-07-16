@@ -59,10 +59,11 @@ namespace LiteDBViewer
             }
         }
 
-        private void listBox_MouseUp(object sender, MouseEventArgs e)
+        private void listBox_Mouse(object sender, MouseEventArgs e)
         {
             listBox.SelectedIndex = listBox.IndexFromPoint(e.X, e.Y);
-            if (e.Button == MouseButtons.Right && listBox.SelectedIndex >= 0 &&
+            if ((e.Button == MouseButtons.Right || (e.Button == MouseButtons.Left && e.Clicks > 1)) &&
+                listBox.SelectedIndex >= 0 &&
                 listBox.SelectedIndex < _contextMenus.Count && _contextMenus[listBox.SelectedIndex] != null)
             {
                 _contextMenus[listBox.SelectedIndex].Show(listBox, e.Location);
