@@ -15,8 +15,11 @@ namespace LiteDBViewer
 
         public ArrayViewForm(BsonValue cell) : this()
         {
-            foreach (var item in cell.AsArray)
+            var array = cell.AsArray;
+            var intLength = array.Count.ToString().Length;
+            for (var i = 0; i < array.Count; i++)
             {
+                var item = array[i];
                 string itemString;
                 ContextMenu contextMenu = null;
                 switch (item.Type)
@@ -52,7 +55,7 @@ namespace LiteDBViewer
                         itemString = cell.ToString();
                         break;
                 }
-                listBox.Items.Add(itemString);
+                listBox.Items.Add($"[{i.ToString($"D{intLength}")}] {itemString}");
                 _contextMenus.Add(contextMenu);
             }
         }
