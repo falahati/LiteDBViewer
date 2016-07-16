@@ -10,6 +10,7 @@ namespace LiteDBViewer
 {
     internal partial class MainForm : Form
     {
+        private const int CollectionsResultLimit = 100;
         private readonly LiteDatabase _db;
 
         public MainForm(string filename)
@@ -32,8 +33,9 @@ namespace LiteDBViewer
         {
             if (lb_Collections.SelectedItem != null && !lb_Collections.SelectedItem.Equals("[QUERY]"))
             {
-                FillDataGridView(_db.GetCollection(lb_Collections.SelectedItem.ToString()).Find(Query.All(), 0, 100));
-                txt_query.Text = @"db." + lb_Collections.SelectedItem + @".find limit 100";
+                FillDataGridView(_db.GetCollection(lb_Collections.SelectedItem.ToString())
+                    .Find(Query.All(), 0, CollectionsResultLimit));
+                txt_query.Text = $"db.{lb_Collections.SelectedItem}.find limit {CollectionsResultLimit}";
             }
         }
 
@@ -148,6 +150,7 @@ namespace LiteDBViewer
             try
             {
                 txt_query.Text = query;
+                FillDataGridView(null);
                 var result = _db.RunCommand(query);
                 var rows = new List<BsonDocument>();
                 if (result.IsArray)

@@ -48,7 +48,7 @@
             this.lb_Collections.Location = new System.Drawing.Point(12, 75);
             this.lb_Collections.Name = "lb_Collections";
             this.lb_Collections.Size = new System.Drawing.Size(170, 259);
-            this.lb_Collections.TabIndex = 0;
+            this.lb_Collections.TabIndex = 3;
             this.lb_Collections.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
             // 
             // dataGridView
@@ -61,7 +61,7 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.Size = new System.Drawing.Size(481, 259);
-            this.dataGridView.TabIndex = 1;
+            this.dataGridView.TabIndex = 5;
             this.dataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
             this.dataGridView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
             // 
@@ -73,34 +73,34 @@
             this.txt_query.Location = new System.Drawing.Point(12, 25);
             this.txt_query.Name = "txt_query";
             this.txt_query.Size = new System.Drawing.Size(657, 21);
-            this.txt_query.TabIndex = 2;
+            this.txt_query.TabIndex = 1;
             this.txt_query.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 3;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Query:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 59);
+            this.label2.Location = new System.Drawing.Point(9, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 4;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Collections:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(188, 59);
+            this.label3.Location = new System.Drawing.Point(185, 59);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 5;
+            this.label3.TabIndex = 4;
             this.label3.Text = "Result:";
             // 
             // MainForm
@@ -117,7 +117,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 375);
             this.Name = "MainForm";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LiteDB Viewer - {FILENAME}";
             this.Load += new System.EventHandler(this.MainForm_Load);
