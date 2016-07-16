@@ -92,6 +92,9 @@ namespace LiteDBViewer
                     textBox.Text += new string(' ', 40 - l) + @"  " + chars;
                 }
             }
+
+            textBox.SelectionStart = 0;
+            textBox.SelectionLength = 0;
         }
         
         private void Close_Click(object sender, EventArgs e)

@@ -63,6 +63,8 @@ namespace LiteDBViewer
             {
                 textBox.Text = _cell.AsString;
             }
+            textBox.SelectionStart = 0;
+            textBox.SelectionLength = 0;
         }
 
         private void Close_Click(object sender, EventArgs e)
