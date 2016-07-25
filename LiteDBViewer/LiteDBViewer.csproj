@@ -34,6 +34,9 @@
   <PropertyGroup>
     <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>LiteDBViewer.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="JsonPrettyPrinterPlus, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\JsonPrettyPrinter.1.0.1.1\lib\net35\JsonPrettyPrinterPlus.dll</HintPath>
