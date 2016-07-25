@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using LiteDB;
 
@@ -22,7 +23,9 @@ namespace LiteDBViewer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Text = Text.Replace("{FILENAME}", _db.GetDatabaseInfo().AsDocument.Get("filename"));
+            Text = Text.Replace("{APPVERSION}", Assembly.GetExecutingAssembly().GetName().Version.ToString())
+                .Replace("{DBVERSION}", Assembly.GetAssembly(typeof (LiteDatabase)).GetName().Version.ToString());
+            txt_filename.Text = _db.GetDatabaseInfo().AsDocument.Get("filename");
             foreach (var collection in _db.GetCollectionNames())
             {
                 lb_Collections.Items.Add(collection);
@@ -170,6 +173,11 @@ namespace LiteDBViewer
             {
                 MessageBox.Show(ex.Message, @"Bad Query", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Info_Click(object sender, EventArgs e)
+        {
+            new DocumentViewForm(_db.GetDatabaseInfo()).ShowDialog();
         }
     }
 }
