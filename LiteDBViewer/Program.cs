@@ -28,6 +28,10 @@ namespace LiteDBViewer
                         MessageBox.Show(ex.Message, arg, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+                if (forms.Count == 0)
+                {
+                    return;
+                }
             }
             while (forms.Count == 0)
             {
