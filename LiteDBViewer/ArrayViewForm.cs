@@ -13,9 +13,8 @@ namespace LiteDBViewer
             InitializeComponent();
         }
 
-        public ArrayViewForm(BsonValue cell) : this()
+        public ArrayViewForm(BsonArray array) : this()
         {
-            var array = cell.AsArray;
             var intLength = array.Count.ToString().Length;
             for (var i = 0; i < array.Count; i++)
             {
@@ -31,28 +30,28 @@ namespace LiteDBViewer
                         itemString = "[OBJECT]";
                         contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add(new MenuItem("View Object",
-                            (o, args) => new DocumentViewForm(item).ShowDialog(this)));
+                            (o, args) => new DocumentViewForm(item.AsDocument).ShowDialog(this)));
                         break;
                     case BsonType.Array:
-                        itemString = $"[ARRAY({cell.AsArray.Count})]";
+                        itemString = $"[ARRAY({item.AsArray.Count})]";
                         contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add(new MenuItem("View Array",
-                            (o, args) => new ArrayViewForm(item).ShowDialog(this)));
+                            (o, args) => new ArrayViewForm(item.AsArray).ShowDialog(this)));
                         break;
                     case BsonType.Binary:
-                        itemString = $"[BINARY({cell.AsBinary.Length})]";
+                        itemString = $"[BINARY({item.AsBinary.Length})]";
                         contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add(new MenuItem("View Binary",
-                            (o, args) => new BinaryViewForm(item).ShowDialog(this)));
+                            (o, args) => new BinaryViewForm(item.AsBinary).ShowDialog(this)));
                         break;
                     case BsonType.String:
-                        itemString = cell.AsString;
+                        itemString = item.AsString;
                         contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add(new MenuItem("View String",
-                            (o, args) => new StringViewForm(item).ShowDialog(this)));
+                            (o, args) => new StringViewForm(item.AsString).ShowDialog(this)));
                         break;
                     default:
-                        itemString = cell.ToString();
+                        itemString = item.ToString();
                         break;
                 }
                 listBox.Items.Add($"[{i.ToString($"D{intLength}")}] {itemString}");

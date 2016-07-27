@@ -3,22 +3,21 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using JsonPrettyPrinterPlus;
 using JsonPrettyPrinterPlus.JsonPrettyPrinterInternals;
-using LiteDB;
 
 namespace LiteDBViewer
 {
     internal partial class StringViewForm : Form
     {
-        private readonly BsonValue _cell;
+        private readonly string _string;
 
         public StringViewForm()
         {
             InitializeComponent();
         }
 
-        public StringViewForm(BsonValue cell) : this()
+        public StringViewForm(string value) : this()
         {
-            _cell = cell;
+            _string = value;
             ShowData();
         }
 
@@ -35,33 +34,33 @@ namespace LiteDBViewer
             textBox.Visible = !(webBrowser.Visible = rb_HTML.Checked);
             if (rb_HTML.Checked)
             {
-                webBrowser.DocumentText = _cell.AsString;
+                webBrowser.DocumentText = _string;
             }
             else if (rb_Json.Checked)
             {
                 try
                 {
-                    textBox.Text = new JsonPrettyPrinter(new JsonPPStrategyContext()).PrettyPrint(_cell.AsString);
+                    textBox.Text = new JsonPrettyPrinter(new JsonPPStrategyContext()).PrettyPrint(_string);
                 }
                 catch (Exception)
                 {
-                    textBox.Text = _cell.AsString;
+                    textBox.Text = _string;
                 }
             }
             else if (rb_XML.Checked)
             {
                 try
                 {
-                    textBox.Text = XDocument.Parse(_cell.AsString).ToString();
+                    textBox.Text = XDocument.Parse(_string).ToString();
                 }
                 catch (Exception)
                 {
-                    textBox.Text = _cell.AsString;
+                    textBox.Text = _string;
                 }
             }
             else
             {
-                textBox.Text = _cell.AsString;
+                textBox.Text = _string;
             }
             textBox.SelectionStart = 0;
             textBox.SelectionLength = 0;

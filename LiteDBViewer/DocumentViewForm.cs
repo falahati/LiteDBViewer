@@ -14,10 +14,10 @@ namespace LiteDBViewer
             InitializeComponent();
         }
 
-        public DocumentViewForm(BsonValue cell) : this()
+        public DocumentViewForm(BsonDocument document) : this()
         {
-            var maxLength = cell.AsDocument.RawValue.Keys.Max(key => key.Length);
-            foreach (var item in cell.AsDocument.RawValue.OrderBy(pair => pair.Key))
+            var maxLength = document.RawValue.Keys.Max(key => key.Length);
+            foreach (var item in document.RawValue.OrderBy(pair => pair.Key))
             {
                 string itemString;
                 ContextMenu contextMenu = null;
@@ -30,25 +30,25 @@ namespace LiteDBViewer
                         itemString = "[OBJECT]";
                         contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add(new MenuItem("View Object",
-                            (o, args) => new DocumentViewForm(item.Value).ShowDialog(this)));
+                            (o, args) => new DocumentViewForm(item.Value.AsDocument).ShowDialog(this)));
                         break;
                     case BsonType.Array:
                         itemString = $"[ARRAY({item.Value.AsArray.Count})]";
                         contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add(new MenuItem("View Array",
-                            (o, args) => new ArrayViewForm(item.Value).ShowDialog(this)));
+                            (o, args) => new ArrayViewForm(item.Value.AsArray).ShowDialog(this)));
                         break;
                     case BsonType.Binary:
                         itemString = $"[BINARY({item.Value.AsBinary.Length})]";
                         contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add(new MenuItem("View Binary",
-                            (o, args) => new BinaryViewForm(item.Value).ShowDialog(this)));
+                            (o, args) => new BinaryViewForm(item.Value.AsBinary).ShowDialog(this)));
                         break;
                     case BsonType.String:
                         itemString = item.Value.AsString;
                         contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add(new MenuItem("View String",
-                            (o, args) => new StringViewForm(item.Value).ShowDialog(this)));
+                            (o, args) => new StringViewForm(item.Value.AsString).ShowDialog(this)));
                         break;
                     default:
                         itemString = item.Value.ToString();
