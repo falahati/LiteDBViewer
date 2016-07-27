@@ -13,23 +13,21 @@ namespace LiteDBViewer
     {
         private const int CollectionsResultLimit = 100;
         private readonly LiteDatabase _db;
-
         public MainForm(string filename)
         {
             _db = new LiteDatabase(filename);
             InitializeComponent();
+            foreach (var collection in _db.GetCollectionNames())
+            {
+                lb_Collections.Items.Add(collection);
+            }
         }
-
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             Text = Text.Replace("{APPVERSION}", Assembly.GetExecutingAssembly().GetName().Version.ToString())
                 .Replace("{DBVERSION}", Assembly.GetAssembly(typeof (LiteDatabase)).GetName().Version.ToString());
             txt_filename.Text = _db.GetDatabaseInfo().AsDocument.Get("filename");
-            foreach (var collection in _db.GetCollectionNames())
-            {
-                lb_Collections.Items.Add(collection);
-            }
         }
 
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
