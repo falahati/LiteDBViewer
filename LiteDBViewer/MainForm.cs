@@ -17,6 +17,7 @@ namespace LiteDBViewer
         {
             _db = new LiteDatabase(filename);
             InitializeComponent();
+            txt_filename.Text = Path.GetFullPath(filename);
             foreach (var collection in _db.GetCollectionNames())
             {
                 lb_Collections.Items.Add(collection);
@@ -27,7 +28,6 @@ namespace LiteDBViewer
         {
             Text = Text.Replace("{APPVERSION}", Assembly.GetExecutingAssembly().GetName().Version.ToString())
                 .Replace("{DBVERSION}", Assembly.GetAssembly(typeof (LiteDatabase)).GetName().Version.ToString());
-            txt_filename.Text = _db.GetDatabaseInfo().AsDocument.Get("filename");
         }
 
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
