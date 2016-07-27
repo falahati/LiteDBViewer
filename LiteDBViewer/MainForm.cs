@@ -111,19 +111,19 @@ namespace LiteDBViewer
                         {
                             case BsonType.String:
                                 m.MenuItems.Add(new MenuItem("View String",
-                                    (o, args) => new StringViewForm(cell).ShowDialog(this)));
+                                    (o, args) => new StringViewForm(cell.AsString).ShowDialog(this)));
                                 break;
                             case BsonType.Document:
                                 m.MenuItems.Add(new MenuItem("View Object",
-                                    (o, args) => new DocumentViewForm(cell).ShowDialog(this)));
+                                    (o, args) => new DocumentViewForm(cell.AsDocument).ShowDialog(this)));
                                 break;
                             case BsonType.Array:
                                 m.MenuItems.Add(new MenuItem("View Array",
-                                    (o, args) => new ArrayViewForm(cell).ShowDialog(this)));
+                                    (o, args) => new ArrayViewForm(cell.AsArray).ShowDialog(this)));
                                 break;
                             case BsonType.Binary:
                                 m.MenuItems.Add(new MenuItem("View Binary",
-                                    (o, args) => new BinaryViewForm(cell).ShowDialog(this)));
+                                    (o, args) => new BinaryViewForm(cell.AsBinary).ShowDialog(this)));
                                 break;
                             default:
                                 return;
@@ -177,7 +177,7 @@ namespace LiteDBViewer
 
         private void Info_Click(object sender, EventArgs e)
         {
-            new DocumentViewForm(_db.GetDatabaseInfo()).ShowDialog();
+            new DocumentViewForm(_db.GetDatabaseInfo().AsDocument).ShowDialog();
         }
     }
 }
