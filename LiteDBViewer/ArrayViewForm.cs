@@ -27,7 +27,9 @@ namespace LiteDBViewer
                         itemString = "[NULL]";
                         break;
                     case BsonType.Document:
-                        itemString = "[OBJECT]";
+                        itemString = item.AsDocument.RawValue.ContainsKey("_type")
+                            ? $"[OBJECT: {item.AsDocument.RawValue["_type"]}]"
+                            : "[OBJECT]";
                         contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add(new MenuItem("View Object",
                             (o, args) => new DocumentViewForm(item.AsDocument).ShowDialog(this)));

@@ -1,4 +1,3 @@
-﻿using System.Collections.Generic;
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +29,9 @@ namespace LiteDBViewer
                         itemString = "[NULL]";
                         break;
                     case BsonType.Document:
-                        itemString = "[OBJECT]";
+                        itemString = item.Value.AsDocument.RawValue.ContainsKey("_type")
+                            ? $"[OBJECT: {item.Value.AsDocument.RawValue["_type"]}]"
+                            : "[OBJECT]";
                         contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add(new MenuItem("View Object",
                             (o, args) => new DocumentViewForm(item.Value.AsDocument).ShowDialog(this)));
@@ -57,7 +58,19 @@ namespace LiteDBViewer
                         itemString = item.Value.ToString();
                         break;
                 }
-                listBox.Items.Add(item.Key + ": " + new string(' ', maxLength - item.Key.Length) + itemString);
+                var keyName = item.Key;
+                switch (item.Key)
+                {
+                    case "_type":
+                        // ReSharper disable once RedundantBaseQualifier
+                        base.Text = $"[OBJECT: {itemString}]";
+                        keyName = "[TYPE]";
+                        break;
+                    case "_id":
+                        keyName = "[ID]";
+                        break;
+                }
+                listBox.Items.Add(keyName + ": " + new string(' ', maxLength - keyName.Length) + itemString);
                 _contextMenus.Add(contextMenu);
             }
         }
