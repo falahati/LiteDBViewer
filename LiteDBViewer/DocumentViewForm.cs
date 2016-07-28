@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using LiteDB;
@@ -16,7 +18,8 @@ namespace LiteDBViewer
 
         public DocumentViewForm(BsonDocument document) : this()
         {
-            var maxLength = document.RawValue.Keys.Max(key => key.Length);
+            var maxLength = Math.Max(document.RawValue.Keys.Any() ? document.RawValue.Keys.Max(key => key.Length) : 0,
+                10);
             foreach (var item in document.RawValue.OrderBy(pair => pair.Key))
             {
                 string itemString;
@@ -70,7 +73,7 @@ namespace LiteDBViewer
             }
         }
 
-        private void Close_Click(object sender, System.EventArgs e)
+        private void Close_Click(object sender, EventArgs e)
         {
             Close();
         }
