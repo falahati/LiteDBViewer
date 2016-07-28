@@ -32,6 +32,7 @@ namespace LiteDBViewer
         private void ShowData()
         {
             textBox.Visible = !(pictureBox.Visible = rb_image.Checked);
+            btn_asString.Enabled = !rb_hex.Checked && !rb_image.Checked;
             if (rb_image.Checked)
             {
                 try
@@ -98,6 +99,11 @@ namespace LiteDBViewer
         private void Close_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void AsString_Click(object sender, EventArgs e)
+        {
+            new StringViewForm(textBox.Text).ShowDialog();
         }
     }
 }
