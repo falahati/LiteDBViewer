@@ -1846,10 +1846,10 @@
 		<col def="S255">ProgId_</col>
 		<col def="S64">MIME_</col>
 		<col def="s38">Feature_</col>
-		<row><td>NewExtension1</td><td>LiteDBViewer.Primary_output</td><td>litedbviewer.databasefile</td><td/><td>AlwaysInstall</td></row>
-		<row><td>NewExtension2</td><td>LiteDBViewer.Primary_output</td><td>litedbviewer.databasefile</td><td/><td>AlwaysInstall</td></row>
-		<row><td>NewExtension3</td><td>LiteDBViewer.Primary_output</td><td>litedbviewer.databasefile</td><td/><td>AlwaysInstall</td></row>
-		<row><td>db</td><td>LiteDBViewer.Primary_output</td><td>litedbviewer.databasefile</td><td/><td>AlwaysInstall</td></row>
+		<row><td>NewExtension1</td><td>LiteDBViewer.Primary_output</td><td/><td/><td>AlwaysInstall</td></row>
+		<row><td>NewExtension2</td><td>LiteDBViewer.Primary_output</td><td/><td/><td>AlwaysInstall</td></row>
+		<row><td>NewExtension3</td><td>LiteDBViewer.Primary_output</td><td/><td/><td>AlwaysInstall</td></row>
+		<row><td>db</td><td>LiteDBViewer.Primary_output</td><td>litedbviewer2.databasefile</td><td/><td>AlwaysInstall</td></row>
 	</table>
 
 	<table name="Feature">
@@ -3844,6 +3844,7 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
 		<row><td>_1F7E76FC_1D8B_41E5_A045_38AD4A120011</td><td/><td>&lt;VSSolutionFolder&gt;\LiteDBViewer\logo.ico</td><td>0</td></row>
+		<row><td>_F094E218_E425_4B70_AC66_093EC1A36A9E</td><td/><td>&lt;VSSolutionFolder&gt;\LiteDBViewer\logo.ico</td><td>0</td></row>
 		<row><td>_FD7293EB_5A56_41B8_A546_E4F5D75E382D</td><td/><td>[INSTALLDIR]LiteDBViewer.exe</td><td>0</td></row>
 	</table>
 
@@ -4278,7 +4279,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S72">Icon_</col>
 		<col def="I2">IconIndex</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>litedbviewer.databasefile</td><td/><td/><td>LiteDB Viewer</td><td>_1F7E76FC_1D8B_41E5_A045_38AD4A120011</td><td>0</td><td/></row>
+		<row><td>litedbviewer2.databasefile</td><td/><td/><td>LiteDB Viewer 2</td><td>_F094E218_E425_4B70_AC66_093EC1A36A9E</td><td>0</td><td/></row>
 	</table>
 
 	<table name="Property">
@@ -4359,7 +4360,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]LiteDBViewer.Primary output</td><td/></row>
 		<row><td>ProductCode</td><td>{BC3A0419-3B32-4F63-B218-D24F4C25D3BA}</td><td/></row>
-		<row><td>ProductName</td><td>LiteDB Viewer</td><td/></row>
+		<row><td>ProductName</td><td>LiteDB Viewer 2</td><td/></row>
 		<row><td>ProductVersion</td><td>2.0.0.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
