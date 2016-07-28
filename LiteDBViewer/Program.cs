@@ -15,7 +15,7 @@ namespace LiteDBViewer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var forms = new List<Form>();
-            if (args != null)
+            if (args != null && args.Length > 0)
             {
                 foreach (var arg in args)
                 {
