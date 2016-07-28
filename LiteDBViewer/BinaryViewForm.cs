@@ -2,22 +2,21 @@
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using LiteDB;
 
 namespace LiteDBViewer
 {
     internal partial class BinaryViewForm : Form
     {
-        private readonly BsonValue _cell;
+        private readonly byte[] _bytes;
 
         public BinaryViewForm()
         {
             InitializeComponent();
         }
 
-        public BinaryViewForm(BsonValue cell) : this()
+        public BinaryViewForm(byte[] bytes) : this()
         {
-            _cell = cell;
+            _bytes = bytes;
             ShowData();
         }
 
@@ -38,7 +37,7 @@ namespace LiteDBViewer
                 try
                 {
                     pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                    pictureBox.Image = (Bitmap) ((new ImageConverter()).ConvertFrom(_cell.AsBinary));
+                    pictureBox.Image = (Bitmap) ((new ImageConverter()).ConvertFrom(_bytes));
                 }
                 catch
                 {
@@ -48,34 +47,33 @@ namespace LiteDBViewer
             }
             else if (rb_ascii.Checked)
             {
-                textBox.Text = Encoding.ASCII.GetString(_cell.AsBinary);
+                textBox.Text = Encoding.ASCII.GetString(_bytes);
             }
             else if (rb_utf7.Checked)
             {
-                textBox.Text = Encoding.UTF7.GetString(_cell.AsBinary);
+                textBox.Text = Encoding.UTF7.GetString(_bytes);
             }
             else if (rb_utf32.Checked)
             {
-                textBox.Text = Encoding.UTF32.GetString(_cell.AsBinary);
+                textBox.Text = Encoding.UTF32.GetString(_bytes);
             }
             else if (rb_unicode.Checked)
             {
-                textBox.Text = Encoding.Unicode.GetString(_cell.AsBinary);
+                textBox.Text = Encoding.Unicode.GetString(_bytes);
             }
             else if (rb_utf8.Checked)
             {
-                textBox.Text = Encoding.UTF8.GetString(_cell.AsBinary);
+                textBox.Text = Encoding.UTF8.GetString(_bytes);
             }
             else
             {
                 textBox.Text = 0.ToString("X8") + @"   ";
-                var bytes = _cell.AsBinary;
                 var chars = string.Empty;
                 var l = 0;
-                for (var i = 0; i < bytes.Length; i++)
+                for (var i = 0; i < _bytes.Length; i++)
                 {
-                    textBox.Text += bytes[i].ToString("X2");
-                    chars += bytes[i] > 0x7F ? '.' : (char) bytes[i];
+                    textBox.Text += _bytes[i].ToString("X2");
+                    chars += _bytes[i] > 0x7F ? '.' : (char) _bytes[i];
                     l = (i + 1)%16;
                     if (l == 0)
                     {
@@ -96,7 +94,7 @@ namespace LiteDBViewer
             textBox.SelectionStart = 0;
             textBox.SelectionLength = 0;
         }
-        
+
         private void Close_Click(object sender, EventArgs e)
         {
             Close();
