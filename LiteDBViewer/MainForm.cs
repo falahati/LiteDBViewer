@@ -71,7 +71,9 @@ namespace LiteDBViewer
                                         dr[property.Key] = "[NULL]";
                                         break;
                                     case BsonType.Document:
-                                        dr[property.Key] = "[OBJECT]";
+                                        dr[property.Key] = property.Value.AsDocument.RawValue.ContainsKey("_type")
+                                            ? $"[OBJECT: {property.Value.AsDocument.RawValue["_type"]}]"
+                                            : "[OBJECT]";
                                         break;
                                     case BsonType.Array:
                                         dr[property.Key] = $"[ARRAY({property.Value.AsArray.Count})]";
