@@ -1146,12 +1146,13 @@
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>LITEDB_VIEWER</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>LITEDB_VIEWER_2</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LITEDB_VIEWER</td><td>ProgramFilesFolder</td><td>LITEDB~1|LiteDB Viewer</td><td/><td>0</td><td/></row>
+		<row><td>LITEDB_VIEWER_2</td><td>ProgramFilesFolder</td><td>LITEDB~1|LiteDB Viewer 2</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>FALAHATI.NET</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
@@ -3712,7 +3713,7 @@
 		<row><td>IDS__IsVerifyRemoveAllDlg_Remove</td><td>1033</td><td>&amp;Remove</td><td>0</td><td/><td>-2086347445</td></row>
 		<row><td>IDS__IsVerifyRemoveAllDlg_RemoveProgram</td><td>1033</td><td>{&amp;MSSansBold8}Remove the Program</td><td>0</td><td/><td>-2086347445</td></row>
 		<row><td>IDS__IsWelcomeDlg_InstallProductName</td><td>1033</td><td>The InstallShield(R) Wizard will install [ProductName] on your computer. To continue, click Next.</td><td>0</td><td/><td>-2086347445</td></row>
-		<row><td>IDS__IsWelcomeDlg_WarningCopyright</td><td>1033</td><td>LiteDB Viewer: github.com/falahati/LiteDBViewer</td><td>0</td><td/><td>-2086361012</td></row>
+		<row><td>IDS__IsWelcomeDlg_WarningCopyright</td><td>1033</td><td>LiteDB Viewer 2: github.com/falahati/LiteDBViewer</td><td>0</td><td/><td>-609982121</td></row>
 		<row><td>IDS__IsWelcomeDlg_WelcomeProductName</td><td>1033</td><td>{&amp;TahomaBold10}Welcome to the InstallShield Wizard for [ProductName]</td><td>0</td><td/><td>-2086347445</td></row>
 		<row><td>IDS__TargetReq_DESC_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-2086347445</td></row>
 		<row><td>IDS__TargetReq_DESC_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>-2086347445</td></row>
@@ -3721,12 +3722,12 @@
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-2086347445</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td>http://www.falahati.net</td><td>0</td><td/><td>-2086371957</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Falahati.net</td><td>0</td><td/><td>-2086386293</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>LiteDB Viewer</td><td>0</td><td/><td>-2086394485</td></row>
-		<row><td>ID_STRING4</td><td>1033</td><td>LiteDB Viewer</td><td>0</td><td/><td>-2086392437</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>LiteDB Viewer Installer</td><td>0</td><td/><td>-2086376053</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>LiteDB Viewer 2</td><td>0</td><td/><td>-610006761</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>LiteDB Viewer 2</td><td>0</td><td/><td>-610002665</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>LiteDB Viewer 2 Installer</td><td>0</td><td/><td>-609998569</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>Project's Github Page</td><td>0</td><td/><td>-2086363765</td></row>
 		<row><td>ID_STRING7</td><td>1033</td><td>https://github.com/falahati/LiteDBViewer/issues</td><td>0</td><td/><td>-2086343285</td></row>
-		<row><td>ID_STRING8</td><td>1033</td><td>LITEDB~1|LiteDB Viewer</td><td>0</td><td/><td>-2086375925</td></row>
+		<row><td>ID_STRING8</td><td>1033</td><td>LITEDB~1|LiteDB Viewer 2</td><td>0</td><td/><td>-609965769</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-2086347445</td></row>
 		<row><td>NEW_STRING1</td><td>1033</td><td>db</td><td>0</td><td/><td>-2086381524</td></row>
 	</table>
@@ -3734,7 +3735,7 @@
 	<table name="ISSwidtagProperty">
 		<col key="yes" def="s72">Name</col>
 		<col def="s0">Value</col>
-		<row><td>UniqueId</td><td>60767AE3-C945-4F32-A468-8C90A5C00FD8</td></row>
+		<row><td>UniqueId</td><td>70767AE3-C945-4F32-A468-8C90A5C00FD8</td></row>
 	</table>
 
 	<table name="ISTargetImage">
@@ -3977,7 +3978,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{B32DD558-D0AA-4A56-8F9D-06EEA1EEFF0D}</td></row>
 		<row><td>ISUSSignature</td><td>{65AD9B60-0BA1-47B5-9407-8485B73EF0A3}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewUpgradePaths,viewUpdateService,viewAppFiles,viewObjects,viewShortcuts,viewRegistry,viewIniFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewServices,viewUI,viewSystemSearch,viewCustomActions,viewRelease</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewUpgradePaths,viewUpdateService,viewAppFiles,viewObjects,viewShortcuts,viewRegistry,viewIniFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewServices,viewUI,viewSystemSearch,viewCustomActions,viewRelease,viewTextMessages</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4357,9 +4358,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]LiteDBViewer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{AC3A0419-3B32-4F63-B218-D24F4C25D3BA}</td><td/></row>
+		<row><td>ProductCode</td><td>{BC3A0419-3B32-4F63-B218-D24F4C25D3BA}</td><td/></row>
 		<row><td>ProductName</td><td>LiteDB Viewer</td><td/></row>
-		<row><td>ProductVersion</td><td>1.2.0.0</td><td/></row>
+		<row><td>ProductVersion</td><td>2.0.0.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4375,7 +4376,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;ISACTIONPROP1</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
-		<row><td>UpgradeCode</td><td>{2BA18088-0874-4E3F-BE6E-A34B6AF756FD}</td><td/></row>
+		<row><td>UpgradeCode</td><td>{3BA18088-0874-4E3F-BE6E-A34B6AF756FD}</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Change</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>
@@ -4644,7 +4645,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">ActionProperty</col>
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
-		<row><td>{2BA18088-0874-4E3F-BE6E-A34B6AF756FD}</td><td>1.0.0.0</td><td>1.1.0.0</td><td>1033</td><td>768</td><td/><td>ISACTIONPROP1</td><td>UpgradeEntry</td></row>
+		<row><td>{3BA18088-0874-4E3F-BE6E-A34B6AF756FD}</td><td>2.0.0.0</td><td>2.0.0.0</td><td>1033</td><td>768</td><td/><td>ISACTIONPROP1</td><td>UpgradeEntry</td></row>
 	</table>
 
 	<table name="Verb">
@@ -4653,7 +4654,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="I2">Sequence</col>
 		<col def="L255">Command</col>
 		<col def="L255">Argument</col>
-		<row><td>db</td><td>open</td><td/><td>View with LiteDB Viewer</td><td>"%1"</td></row>
+		<row><td>db</td><td>open</td><td/><td>View with LiteDB Viewer 2</td><td>"%1"</td></row>
 	</table>
 
 	<table name="_Validation">
