@@ -144,7 +144,6 @@ namespace LiteDBViewer
                     lb_Collections.Items.Add("[QUERY]");
                 }
                 lb_Collections.SelectedItem = "[QUERY]";
-                _db.Commit();
             }
         }
 
@@ -154,7 +153,7 @@ namespace LiteDBViewer
             {
                 txt_query.Text = query;
                 FillDataGridView(null);
-                var result = _db.RunCommand(query);
+                var result = _db.Run(query);
                 var rows = new List<BsonDocument>();
                 if (result.IsArray)
                 {
@@ -176,7 +175,8 @@ namespace LiteDBViewer
 
         private void Info_Click(object sender, EventArgs e)
         {
-            new DocumentViewForm(_db.GetDatabaseInfo().AsDocument).ShowDialog();
+            new ArrayViewForm(new BsonArray(_db.FileStorage.FindAll().ToArray().Select(info => info.AsDocument)))
+                .ShowDialog();
         }
     }
 }
