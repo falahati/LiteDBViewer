@@ -31,7 +31,7 @@ namespace LiteDBViewer
 
         private void ShowData()
         {
-            textBox.Visible = !(webBrowser.Visible = rb_HTML.Checked);
+            textBox.Visible = !(webBrowserPanel.Visible = webBrowser.Visible = rb_HTML.Checked);
             if (rb_HTML.Checked)
             {
                 webBrowser.DocumentText = _string;
@@ -57,6 +57,20 @@ namespace LiteDBViewer
                 {
                     textBox.Text = _string;
                 }
+            }
+            else if (rb_base64.Checked)
+            {
+                textBox.Text = string.Empty;
+                try
+                {
+                    new BinaryViewForm(Convert.FromBase64String(_string)).ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                rb_base64.Checked = false;
+                rb_String.Checked = true;
             }
             else
             {
