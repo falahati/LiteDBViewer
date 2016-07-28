@@ -36,6 +36,9 @@
             this.rb_Json = new System.Windows.Forms.RadioButton();
             this.rb_HTML = new System.Windows.Forms.RadioButton();
             this.btn_close = new System.Windows.Forms.Button();
+            this.webBrowserPanel = new System.Windows.Forms.Panel();
+            this.rb_base64 = new System.Windows.Forms.RadioButton();
+            this.webBrowserPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox
@@ -58,14 +61,12 @@
             // 
             this.webBrowser.AllowNavigation = false;
             this.webBrowser.AllowWebBrowserDrop = false;
-            this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowser.Location = new System.Drawing.Point(12, 12);
+            this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser.Location = new System.Drawing.Point(0, 0);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(572, 439);
-            this.webBrowser.TabIndex = 1;
+            this.webBrowser.Size = new System.Drawing.Size(570, 437);
+            this.webBrowser.TabIndex = 0;
             this.webBrowser.Visible = false;
             this.webBrowser.WebBrowserShortcutsEnabled = false;
             // 
@@ -126,10 +127,35 @@
             this.btn_close.Location = new System.Drawing.Point(590, 428);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(105, 23);
-            this.btn_close.TabIndex = 6;
+            this.btn_close.TabIndex = 7;
             this.btn_close.Text = "&Close";
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.Close_Click);
+            // 
+            // webBrowserPanel
+            // 
+            this.webBrowserPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowserPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.webBrowserPanel.Controls.Add(this.webBrowser);
+            this.webBrowserPanel.Location = new System.Drawing.Point(12, 10);
+            this.webBrowserPanel.Name = "webBrowserPanel";
+            this.webBrowserPanel.Size = new System.Drawing.Size(572, 439);
+            this.webBrowserPanel.TabIndex = 1;
+            this.webBrowserPanel.Visible = false;
+            // 
+            // rb_base64
+            // 
+            this.rb_base64.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rb_base64.AutoSize = true;
+            this.rb_base64.Location = new System.Drawing.Point(600, 104);
+            this.rb_base64.Name = "rb_base64";
+            this.rb_base64.Size = new System.Drawing.Size(101, 17);
+            this.rb_base64.TabIndex = 6;
+            this.rb_base64.Text = "View as Base64";
+            this.rb_base64.UseVisualStyleBackColor = true;
+            this.rb_base64.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
             // 
             // StringViewForm
             // 
@@ -137,13 +163,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btn_close;
             this.ClientSize = new System.Drawing.Size(704, 461);
+            this.Controls.Add(this.rb_base64);
             this.Controls.Add(this.btn_close);
             this.Controls.Add(this.rb_HTML);
             this.Controls.Add(this.rb_Json);
             this.Controls.Add(this.rb_XML);
             this.Controls.Add(this.rb_String);
             this.Controls.Add(this.textBox);
-            this.Controls.Add(this.webBrowser);
+            this.Controls.Add(this.webBrowserPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(350, 250);
@@ -152,6 +179,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "String Viewer";
+            this.webBrowserPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,5 +194,7 @@
         private System.Windows.Forms.RadioButton rb_Json;
         private System.Windows.Forms.RadioButton rb_HTML;
         private System.Windows.Forms.Button btn_close;
+        private System.Windows.Forms.Panel webBrowserPanel;
+        private System.Windows.Forms.RadioButton rb_base64;
     }
 }
