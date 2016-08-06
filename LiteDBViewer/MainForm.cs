@@ -23,6 +23,7 @@ namespace LiteDBViewer
             {
                 lb_Collections.Items.Add(collection);
             }
+            lb_Collections.Items.Add("[FILESTORAGE]");
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -33,11 +34,17 @@ namespace LiteDBViewer
 
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lb_Collections.SelectedItem != null && !lb_Collections.SelectedItem.Equals("[QUERY]"))
+            if (lb_Collections.SelectedItem != null && !lb_Collections.SelectedItem.Equals("[QUERY]") &&
+                !lb_Collections.SelectedItem.Equals("[FILESTORAGE]"))
             {
                 FillDataGridView(_db.GetCollection(lb_Collections.SelectedItem.ToString())
                     .Find(Query.All(), 0, CollectionsResultLimit));
                 txt_query.Text = $"db.{lb_Collections.SelectedItem}.find limit {CollectionsResultLimit}";
+            }
+            else if (lb_Collections.SelectedItem?.Equals("[FILESTORAGE]") == true)
+            {
+                FillDataGridView(_db.FileStorage.FindAll().Select(info => info.AsDocument).ToArray());
+                txt_query.Text = @"fs.find";
             }
         }
 
