@@ -184,18 +184,15 @@ namespace LiteDBViewer
 
         private void Info_Click(object sender, EventArgs e)
         {
-            var infos = _db.FileStorage.FindAll().Select(info => info.AsDocument).ToArray();
-            if (infos.Length <= 0)
+            var infos = new Dictionary<string, BsonValue> {{"DbVersion", new BsonValue((int) _db.DbVersion)}};
+            foreach (var collectionName in _db.GetCollectionNames())
             {
-                new DocumentViewForm(_db.ToDocument(_db)).ShowDialog();
+                infos.Add($"[{collectionName}] Stats", _db.Run($"db.{collectionName}.stats"));
             }
-            else if (infos.Length == 1)
+            new DocumentViewForm(new BsonDocument(infos)).ShowDialog();
+        }
             {
-                new DocumentViewForm(infos.FirstOrDefault()).ShowDialog();
-            }
-            else
             {
-                new ArrayViewForm(new BsonArray((IEnumerable<BsonDocument>) infos)).ShowDialog();
             }
         }
     }
