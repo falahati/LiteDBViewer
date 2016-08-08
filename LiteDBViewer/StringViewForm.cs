@@ -16,9 +16,13 @@ namespace LiteDBViewer
             InitializeComponent();
         }
 
-        public StringViewForm(string value) : this()
+        public StringViewForm(string value, bool json = false) : this()
         {
             _string = value;
+            if (json)
+            {
+                rb_Json.Checked = true;
+            }
         }
 
         private void Radio_CheckedChanged(object sender, EventArgs e)
