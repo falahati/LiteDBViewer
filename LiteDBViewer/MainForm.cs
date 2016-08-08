@@ -13,8 +13,11 @@ namespace LiteDBViewer
     internal partial class MainForm : Form
     {
         private const int CollectionsResultLimit = 100;
-        private readonly string _fileName;
         private readonly bool _encrypted;
+        private readonly string _fileName;
+
+        private readonly Dictionary<BsonDocument, LiteFileInfo> _fileStorageBinding =
+            new Dictionary<BsonDocument, LiteFileInfo>();
 
         private LiteDatabase _db;
 
@@ -40,7 +43,10 @@ namespace LiteDBViewer
             txt_filename.Text = _fileName + (_encrypted ? " [ENCRYPTED]" : string.Empty);
             foreach (var collection in _db.GetCollectionNames())
             {
-                lb_Collections.Items.Add(collection);
+                if (!collection.Equals("_chunks") && !collection.Equals("_files"))
+                {
+                    lb_Collections.Items.Add(collection);
+                }
             }
             lb_Collections.Items.Add("[FILESTORAGE]");
         }
@@ -54,6 +60,7 @@ namespace LiteDBViewer
 
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _fileStorageBinding.Clear();
             if (lb_Collections.SelectedItem != null && !lb_Collections.SelectedItem.Equals("[QUERY]") &&
                 !lb_Collections.SelectedItem.Equals("[FILESTORAGE]"))
             {
@@ -63,7 +70,11 @@ namespace LiteDBViewer
             }
             else if (lb_Collections.SelectedItem?.Equals("[FILESTORAGE]") == true)
             {
-                FillDataGridView(_db.FileStorage.FindAll().Select(info => info.AsDocument).ToArray());
+                foreach (var fileInfo in _db.FileStorage.FindAll())
+                {
+                    _fileStorageBinding.Add(fileInfo.AsDocument, fileInfo);
+                }
+                FillDataGridView(_fileStorageBinding.Keys.ToArray());
                 txt_query.Text = @"fs.find";
             }
         }
@@ -133,28 +144,71 @@ namespace LiteDBViewer
                             LiteDataRow)?.UnderlyingValue;
                     if (dataRowValue != null)
                     {
-                        var cell = dataRowValue[dataGridView.Columns[currentMouseOver.ColumnIndex].Name];
                         var m = new ContextMenu();
-                        switch (cell.Type)
+                        m.MenuItems.Add(new MenuItem("View Row as Object",
+                            (o, args) => new DocumentViewForm(dataRowValue.AsDocument).ShowDialog(this)));
+                        if (_fileStorageBinding.ContainsKey(dataRowValue))
                         {
-                            case BsonType.String:
-                                m.MenuItems.Add(new MenuItem("View String",
-                                    (o, args) => new StringViewForm(cell.AsString).ShowDialog(this)));
-                                break;
-                            case BsonType.Document:
-                                m.MenuItems.Add(new MenuItem("View Object",
-                                    (o, args) => new DocumentViewForm(cell.AsDocument).ShowDialog(this)));
-                                break;
-                            case BsonType.Array:
-                                m.MenuItems.Add(new MenuItem("View Array",
-                                    (o, args) => new ArrayViewForm(cell.AsArray).ShowDialog(this)));
-                                break;
-                            case BsonType.Binary:
-                                m.MenuItems.Add(new MenuItem("View Binary",
-                                    (o, args) => new BinaryViewForm(cell.AsBinary).ShowDialog(this)));
-                                break;
-                            default:
-                                return;
+                            m.MenuItems.Add("-");
+                            m.MenuItems.Add(new MenuItem("View Stored Binary Data",
+                                (o, args) =>
+                                {
+                                    var bytes = new byte[_fileStorageBinding[dataRowValue].Length];
+                                    _fileStorageBinding[dataRowValue].OpenRead().Read(bytes, 0, bytes.Length);
+                                    new BinaryViewForm(bytes).ShowDialog(this);
+                                }));
+                            m.MenuItems.Add(new MenuItem("Save Stored Data to File",
+                                (o, args) =>
+                                {
+                                    try
+                                    {
+                                        var extention =
+                                            Path.GetExtension(_fileStorageBinding[dataRowValue].Filename)?.ToLower() ??
+                                            ".*";
+                                        var sfd = new SaveFileDialog
+                                        {
+                                            RestoreDirectory = true,
+                                            Title = @"Save data to file",
+                                            Filter = $"'{extention}' File|*{extention}|All Files|*.*",
+                                            FileName = _fileStorageBinding[dataRowValue].Filename
+                                        };
+                                        if (sfd.ShowDialog() != DialogResult.OK)
+                                            return;
+                                        _fileStorageBinding[dataRowValue].SaveAs(sfd.FileName);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show(ex.Message, @"Saving Data", MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error);
+                                    }
+                                }));
+                        }
+                        if (currentMouseOver.ColumnIndex >= 0)
+                        {
+                            var cell = dataRowValue[dataGridView.Columns[currentMouseOver.ColumnIndex].Name];
+                            switch (cell.Type)
+                            {
+                                case BsonType.String:
+                                    m.MenuItems.Add("-");
+                                    m.MenuItems.Add(new MenuItem("View String",
+                                        (o, args) => new StringViewForm(cell.AsString).ShowDialog(this)));
+                                    break;
+                                case BsonType.Document:
+                                    m.MenuItems.Add("-");
+                                    m.MenuItems.Add(new MenuItem("View Object",
+                                        (o, args) => new DocumentViewForm(cell.AsDocument).ShowDialog(this)));
+                                    break;
+                                case BsonType.Array:
+                                    m.MenuItems.Add("-");
+                                    m.MenuItems.Add(new MenuItem("View Array",
+                                        (o, args) => new ArrayViewForm(cell.AsArray).ShowDialog(this)));
+                                    break;
+                                case BsonType.Binary:
+                                    m.MenuItems.Add("-");
+                                    m.MenuItems.Add(new MenuItem("View Binary",
+                                        (o, args) => new BinaryViewForm(cell.AsBinary).ShowDialog(this)));
+                                    break;
+                            }
                         }
                         m.Show(dataGridView, new Point(e.X, e.Y));
                     }
