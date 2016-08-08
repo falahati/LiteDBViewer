@@ -9,6 +9,7 @@ namespace LiteDBViewer
     internal partial class DocumentViewForm : Form
     {
         private readonly List<ContextMenu> _contextMenus = new List<ContextMenu>();
+        private readonly BsonDocument _document;
 
         public DocumentViewForm()
         {
@@ -17,13 +18,14 @@ namespace LiteDBViewer
 
         public DocumentViewForm(BsonDocument document) : this()
         {
-            if (document == null)
+            _document = document;
+            if (_document == null)
             {
                 return;
             }
-            var maxLength = Math.Max(document.RawValue.Keys.Any() ? document.RawValue.Keys.Max(key => key.Length) : 0,
+            var maxLength = Math.Max(_document.RawValue.Keys.Any() ? _document.RawValue.Keys.Max(key => key.Length) : 0,
                 10);
-            foreach (var item in document.RawValue.OrderBy(pair => pair.Key))
+            foreach (var item in _document.RawValue.OrderBy(pair => pair.Key))
             {
                 string itemString;
                 ContextMenu contextMenu = null;
@@ -93,6 +95,11 @@ namespace LiteDBViewer
         private void Close_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void ViewJson_Click(object sender, EventArgs e)
+        {
+            new StringViewForm(_document.AsDocument.ToString(), true).ShowDialog();
         }
     }
 }
