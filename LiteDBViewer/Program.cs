@@ -40,8 +40,12 @@ namespace LiteDBViewer
                     CheckFileExists = true,
                     Multiselect = true,
                     RestoreDirectory = true,
-                    Title = @"Open LiteDB Data Storage File"
+                    Title =
+                        $@"Open LiteDB Database File - LiteDB Viewer v{
+                            Assembly.GetExecutingAssembly().GetName().Version}",
+                    Filter = $"LiteDB v{Assembly.GetAssembly(typeof (LiteDatabase)).GetName().Version.Major} Files|*.*"
                 };
+
                 if (ofd.ShowDialog() != DialogResult.OK)
                 {
                     return;
