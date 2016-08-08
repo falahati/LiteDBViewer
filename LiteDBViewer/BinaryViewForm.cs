@@ -17,7 +17,6 @@ namespace LiteDBViewer
         public BinaryViewForm(byte[] bytes) : this()
         {
             _bytes = bytes;
-            ShowData();
         }
 
 
@@ -104,6 +103,12 @@ namespace LiteDBViewer
         private void AsString_Click(object sender, EventArgs e)
         {
             new StringViewForm(textBox.Text).ShowDialog();
+        }
+        private void BinaryViewForm_Shown(object sender, EventArgs e)
+        {
+            Enabled = false;
+            ShowData();
+            Enabled = true;
         }
     }
 }

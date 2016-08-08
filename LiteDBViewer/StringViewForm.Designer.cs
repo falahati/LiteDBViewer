@@ -179,6 +179,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "String Viewer";
+            this.Shown += new System.EventHandler(this.StringViewForm_Shown);
             this.webBrowserPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

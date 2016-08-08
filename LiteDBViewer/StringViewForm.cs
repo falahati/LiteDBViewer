@@ -18,7 +18,6 @@ namespace LiteDBViewer
         public StringViewForm(string value) : this()
         {
             _string = value;
-            ShowData();
         }
 
         private void Radio_CheckedChanged(object sender, EventArgs e)
@@ -83,6 +82,12 @@ namespace LiteDBViewer
         private void Close_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        private void StringViewForm_Shown(object sender, EventArgs e)
+        {
+            Enabled = false;
+            ShowData();
+            Enabled = true;
         }
     }
 }
