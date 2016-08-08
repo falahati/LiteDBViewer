@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Forms;
+using LiteDB;
 
 namespace LiteDBViewer
 {
@@ -61,11 +63,6 @@ namespace LiteDBViewer
                         MessageBox.Show(ex.Message, fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            }
-            foreach (var form in forms)
-            {
-                form.Show();
-                form.Activate();
             }
             Application.Run(new MultiFormApplicationContext(forms.ToArray()));
         }

@@ -13,7 +13,7 @@ namespace LiteDBViewer
     internal partial class MainForm : Form
     {
         private const int CollectionsResultLimit = 100;
-        private readonly LiteDatabase _db;
+        private LiteDatabase _db;
         public MainForm(string filename)
         {
             _db = new LiteDatabase(filename);
@@ -29,6 +29,7 @@ namespace LiteDBViewer
         {
             Text = Text.Replace("{APPVERSION}", Assembly.GetExecutingAssembly().GetName().Version.ToString())
                 .Replace("{DBVERSION}", Assembly.GetAssembly(typeof (LiteDatabase)).GetName().Version.ToString());
+            Activate();
         }
 
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
