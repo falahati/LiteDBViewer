@@ -46,11 +46,6 @@ namespace LiteDBViewer
                 }
                 forms.AddRange(ofd.FileNames.Select(OpenDatabase).Where(form => form != null));
             }
-            foreach (var form in forms)
-            {
-                form.Show();
-                form.Activate();
-            }
             Application.Run(new MultiFormApplicationContext(forms.ToArray()));
         }
 

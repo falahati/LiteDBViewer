@@ -58,6 +58,7 @@ namespace LiteDBViewer
                 foreach (var form in _forms)
                 {
                     form.HandleDestroyed += eventHandler;
+                    form.Show();
                 }
             }
         }

@@ -50,7 +50,7 @@ namespace LiteDBViewer
         /// </summary>
         /// <param name="info">The data needed to serialize or deserialize an object.</param>
         /// <param name="context">The source and destination of a given serialized stream. </param>
-        public LiteDataTable(SerializationInfo info, StreamingContext context)
+        protected LiteDataTable(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
