@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using JsonPrettyPrinterPlus;
@@ -83,6 +84,31 @@ namespace LiteDBViewer
         {
             Close();
         }
+
+        private void Dump_Click(object sender, EventArgs e)
+        {
+            var sfd = new SaveFileDialog
+            {
+                RestoreDirectory = true,
+                Title = @"Save string to file",
+                Filter = @"Text|*.txt|All Files|*.*"
+            };
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+            try
+            {
+                using (var writer = File.CreateText(sfd.FileName))
+                {
+                    writer.Write(_string);
+                    writer.Flush();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Saving String", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void StringViewForm_Shown(object sender, EventArgs e)
         {
             Enabled = false;

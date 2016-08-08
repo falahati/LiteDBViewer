@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -104,6 +105,31 @@ namespace LiteDBViewer
         {
             new StringViewForm(textBox.Text).ShowDialog();
         }
+
+        private void Dump_Click(object sender, EventArgs e)
+        {
+            var sfd = new SaveFileDialog
+            {
+                RestoreDirectory = true,
+                Title = @"Dump binary data to file",
+                Filter = @"Binary|*.bin|All Files|*.*"
+            };
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+            try
+            {
+                using (var writer = File.Create(sfd.FileName))
+                {
+                    writer.Write(_bytes, 0, _bytes.Length);
+                    writer.Flush();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Dumping Binary", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void BinaryViewForm_Shown(object sender, EventArgs e)
         {
             Enabled = false;
