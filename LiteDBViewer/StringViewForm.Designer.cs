@@ -38,6 +38,7 @@
             this.btn_close = new System.Windows.Forms.Button();
             this.webBrowserPanel = new System.Windows.Forms.Panel();
             this.rb_base64 = new System.Windows.Forms.RadioButton();
+            this.btn_dump = new System.Windows.Forms.Button();
             this.webBrowserPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,7 +128,7 @@
             this.btn_close.Location = new System.Drawing.Point(590, 428);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(105, 23);
-            this.btn_close.TabIndex = 7;
+            this.btn_close.TabIndex = 8;
             this.btn_close.Text = "&Close";
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.Close_Click);
@@ -157,12 +158,24 @@
             this.rb_base64.UseVisualStyleBackColor = true;
             this.rb_base64.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
             // 
+            // btn_dump
+            // 
+            this.btn_dump.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_dump.Location = new System.Drawing.Point(590, 399);
+            this.btn_dump.Name = "btn_dump";
+            this.btn_dump.Size = new System.Drawing.Size(105, 23);
+            this.btn_dump.TabIndex = 7;
+            this.btn_dump.Text = "&Save to File";
+            this.btn_dump.UseVisualStyleBackColor = true;
+            this.btn_dump.Click += new System.EventHandler(this.Dump_Click);
+            // 
             // StringViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btn_close;
             this.ClientSize = new System.Drawing.Size(704, 461);
+            this.Controls.Add(this.btn_dump);
             this.Controls.Add(this.rb_base64);
             this.Controls.Add(this.btn_close);
             this.Controls.Add(this.rb_HTML);
@@ -197,5 +210,6 @@
         private System.Windows.Forms.Button btn_close;
         private System.Windows.Forms.Panel webBrowserPanel;
         private System.Windows.Forms.RadioButton rb_base64;
+        private System.Windows.Forms.Button btn_dump;
     }
 }

@@ -40,6 +40,7 @@
             this.rb_unicode = new System.Windows.Forms.RadioButton();
             this.btn_close = new System.Windows.Forms.Button();
             this.btn_asString = new System.Windows.Forms.Button();
+            this.btn_dump = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -167,7 +168,7 @@
             this.btn_close.Location = new System.Drawing.Point(590, 426);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(108, 23);
-            this.btn_close.TabIndex = 9;
+            this.btn_close.TabIndex = 10;
             this.btn_close.Text = "&Close";
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.Close_Click);
@@ -178,10 +179,21 @@
             this.btn_asString.Location = new System.Drawing.Point(590, 397);
             this.btn_asString.Name = "btn_asString";
             this.btn_asString.Size = new System.Drawing.Size(108, 23);
-            this.btn_asString.TabIndex = 8;
+            this.btn_asString.TabIndex = 9;
             this.btn_asString.Text = "View as &String";
             this.btn_asString.UseVisualStyleBackColor = true;
             this.btn_asString.Click += new System.EventHandler(this.AsString_Click);
+            // 
+            // btn_dump
+            // 
+            this.btn_dump.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_dump.Location = new System.Drawing.Point(590, 368);
+            this.btn_dump.Name = "btn_dump";
+            this.btn_dump.Size = new System.Drawing.Size(108, 23);
+            this.btn_dump.TabIndex = 8;
+            this.btn_dump.Text = "&Dump";
+            this.btn_dump.UseVisualStyleBackColor = true;
+            this.btn_dump.Click += new System.EventHandler(this.Dump_Click);
             // 
             // BinaryViewForm
             // 
@@ -189,6 +201,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btn_close;
             this.ClientSize = new System.Drawing.Size(704, 461);
+            this.Controls.Add(this.btn_dump);
             this.Controls.Add(this.btn_asString);
             this.Controls.Add(this.btn_close);
             this.Controls.Add(this.rb_unicode);
@@ -228,5 +241,6 @@
         private System.Windows.Forms.RadioButton rb_unicode;
         private System.Windows.Forms.Button btn_close;
         private System.Windows.Forms.Button btn_asString;
+        private System.Windows.Forms.Button btn_dump;
     }
 }
