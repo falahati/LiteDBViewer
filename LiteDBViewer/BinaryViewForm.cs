@@ -68,28 +68,34 @@ namespace LiteDBViewer
             }
             else
             {
-                textBox.Text = 0.ToString("X8") + @"   ";
+                var text = new StringBuilder();
+                text.Append(0.ToString("X8") + @"   ");
                 var chars = string.Empty;
                 var l = 0;
                 for (var i = 0; i < _bytes.Length; i++)
                 {
-                    textBox.Text += _bytes[i].ToString("X2");
-                    chars += _bytes[i] > 0x7F ? '.' : (char) _bytes[i];
+                    chars += _bytes[i] < 0x20 || _bytes[i] > 0x7F ? '.' : (char) _bytes[i];
                     l = (i + 1)%16;
-                    if (l == 0)
+                    switch (l)
                     {
-                        textBox.Text += @"  " + chars + Environment.NewLine + (i + 1).ToString("X8") + @"   ";
-                        chars = string.Empty;
+                        case 0:
+                            text.Append(_bytes[i].ToString("X2") +
+                                        $"  {chars}{Environment.NewLine}{(i + 1).ToString("X8")}   ");
+                            chars = string.Empty;
+                            break;
+                        case 8:
+                            text.Append(_bytes[i].ToString("X2") + @"  ");
+                            break;
+                        default:
+                            text.Append(_bytes[i].ToString("X2") + ' ');
+                            break;
                     }
-                    else if (l == 8)
-                        textBox.Text += @"  ";
-                    else
-                        textBox.Text += ' ';
                 }
                 if (!string.IsNullOrWhiteSpace(chars))
                 {
-                    textBox.Text += new string(' ', 40 - l) + @"  " + chars;
+                    text.Append(new string(' ', 40 - l) + @"  " + chars);
                 }
+                textBox.Text = text.ToString();
             }
 
             textBox.SelectionStart = 0;
