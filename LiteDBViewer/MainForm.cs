@@ -36,7 +36,7 @@ namespace LiteDBViewer
 
             _encrypted = !string.IsNullOrWhiteSpace(password);
             _fileName = Path.GetFullPath(fileName);
-            _db = new LiteDatabase((_encrypted ? string.Empty : $"password={password};") + $"filename={_fileName};");
+            _db = new LiteDatabase(_encrypted ? $"password={password};filename={_fileName}" : _fileName);
 
             InitializeComponent();
 
