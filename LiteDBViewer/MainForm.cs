@@ -174,6 +174,20 @@ namespace LiteDBViewer
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                components?.Dispose();
+                if (_db != null)
+                {
+                    _db.Dispose();
+                    _db = null;
+                }
+            }
+            base.Dispose(disposing);
+        }
+
         private void RunQuery(string query)
         {
             try
