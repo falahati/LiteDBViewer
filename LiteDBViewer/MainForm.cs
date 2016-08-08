@@ -191,8 +191,43 @@ namespace LiteDBViewer
             }
             new DocumentViewForm(new BsonDocument(infos)).ShowDialog();
         }
+
+        private void Export_Click(object sender, EventArgs e)
+        {
+            var sfd = new SaveFileDialog
             {
+                RestoreDirectory = true,
+                Title = @"Dump Database data to file",
+                Filter = @"Dump file|*.dmp"
+            };
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+            try
             {
+                using (var writer = File.CreateText(sfd.FileName))
+                {
+                    var mapper = new BsonMapper().UseCamelCase();
+                    foreach (var name in _db.GetCollectionNames())
+                    {
+                        writer.WriteLine("-- Collection '{0}'", name);
+                        var col = _db.GetCollection(name);
+                        foreach (var index in col.GetIndexes().Where(x => x.Field != "_id"))
+                        {
+                            writer.WriteLine("db.{0}.ensureIndex {1} {2}", name, index.Field,
+                                JsonSerializer.Serialize(mapper.ToDocument(index.Options)));
+                        }
+                        foreach (var doc in col.Find(Query.All()))
+                        {
+                            writer.WriteLine("db.{0}.insert {1}", name, JsonSerializer.Serialize(doc));
+                        }
+                        writer.Flush();
+                    }
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Dumping Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

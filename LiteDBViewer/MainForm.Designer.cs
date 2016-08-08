@@ -38,6 +38,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txt_filename = new System.Windows.Forms.TextBox();
             this.btn_info = new System.Windows.Forms.Button();
+            this.btn_export = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -124,14 +125,14 @@
             this.txt_filename.Location = new System.Drawing.Point(12, 28);
             this.txt_filename.Name = "txt_filename";
             this.txt_filename.ReadOnly = true;
-            this.txt_filename.Size = new System.Drawing.Size(631, 21);
+            this.txt_filename.Size = new System.Drawing.Size(608, 21);
             this.txt_filename.TabIndex = 7;
             // 
             // btn_info
             // 
             this.btn_info.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_info.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_info.Location = new System.Drawing.Point(649, 28);
+            this.btn_info.Location = new System.Drawing.Point(626, 28);
             this.btn_info.Name = "btn_info";
             this.btn_info.Size = new System.Drawing.Size(20, 21);
             this.btn_info.TabIndex = 8;
@@ -139,11 +140,24 @@
             this.btn_info.UseVisualStyleBackColor = true;
             this.btn_info.Click += new System.EventHandler(this.Info_Click);
             // 
+            // btn_export
+            // 
+            this.btn_export.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_export.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_export.Location = new System.Drawing.Point(652, 28);
+            this.btn_export.Name = "btn_export";
+            this.btn_export.Size = new System.Drawing.Size(20, 21);
+            this.btn_export.TabIndex = 9;
+            this.btn_export.Text = ">";
+            this.btn_export.UseVisualStyleBackColor = true;
+            this.btn_export.Click += new System.EventHandler(this.Export_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 387);
+            this.Controls.Add(this.btn_export);
             this.Controls.Add(this.btn_info);
             this.Controls.Add(this.txt_filename);
             this.Controls.Add(this.label4);
@@ -176,6 +190,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txt_filename;
         private System.Windows.Forms.Button btn_info;
+        private System.Windows.Forms.Button btn_export;
     }
 }
 
