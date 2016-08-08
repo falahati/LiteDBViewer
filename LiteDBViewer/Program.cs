@@ -64,7 +64,10 @@ namespace LiteDBViewer
             {
                 if (ex.ErrorCode == LiteException.DATABASE_WRONG_PASSWORD)
                 {
-                    MessageBox.Show(ex.Message, fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (!string.IsNullOrEmpty(password))
+                    {
+                        MessageBox.Show(ex.Message, fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     var passwordForm = new PasswordForm();
                     return passwordForm.ShowDialog() != DialogResult.OK
                         ? null
