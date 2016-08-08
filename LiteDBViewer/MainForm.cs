@@ -107,28 +107,35 @@ namespace LiteDBViewer
                             LiteDataRow)?.UnderlyingValue;
                     if (dataRowValue != null)
                     {
-                        var cell = dataRowValue[dataGridView.Columns[currentMouseOver.ColumnIndex].Name];
                         var m = new ContextMenu();
-                        switch (cell.Type)
+                        m.MenuItems.Add(new MenuItem("View Row as Object",
+                            (o, args) => new DocumentViewForm(dataRowValue.AsDocument).ShowDialog(this)));
+                        if (currentMouseOver.ColumnIndex >= 0)
                         {
-                            case BsonType.String:
-                                m.MenuItems.Add(new MenuItem("View String",
-                                    (o, args) => new StringViewForm(cell.AsString).ShowDialog(this)));
-                                break;
-                            case BsonType.Document:
-                                m.MenuItems.Add(new MenuItem("View Object",
-                                    (o, args) => new DocumentViewForm(cell.AsDocument).ShowDialog(this)));
-                                break;
-                            case BsonType.Array:
-                                m.MenuItems.Add(new MenuItem("View Array",
-                                    (o, args) => new ArrayViewForm(cell.AsArray).ShowDialog(this)));
-                                break;
-                            case BsonType.Binary:
-                                m.MenuItems.Add(new MenuItem("View Binary",
-                                    (o, args) => new BinaryViewForm(cell.AsBinary).ShowDialog(this)));
-                                break;
-                            default:
-                                return;
+                            var cell = dataRowValue[dataGridView.Columns[currentMouseOver.ColumnIndex].Name];
+                            switch (cell.Type)
+                            {
+                                case BsonType.String:
+                                    m.MenuItems.Add("-");
+                                    m.MenuItems.Add(new MenuItem("View String",
+                                        (o, args) => new StringViewForm(cell.AsString).ShowDialog(this)));
+                                    break;
+                                case BsonType.Document:
+                                    m.MenuItems.Add("-");
+                                    m.MenuItems.Add(new MenuItem("View Object",
+                                        (o, args) => new DocumentViewForm(cell.AsDocument).ShowDialog(this)));
+                                    break;
+                                case BsonType.Array:
+                                    m.MenuItems.Add("-");
+                                    m.MenuItems.Add(new MenuItem("View Array",
+                                        (o, args) => new ArrayViewForm(cell.AsArray).ShowDialog(this)));
+                                    break;
+                                case BsonType.Binary:
+                                    m.MenuItems.Add("-");
+                                    m.MenuItems.Add(new MenuItem("View Binary",
+                                        (o, args) => new BinaryViewForm(cell.AsBinary).ShowDialog(this)));
+                                    break;
+                            }
                         }
                         m.Show(dataGridView, new Point(e.X, e.Y));
                     }
