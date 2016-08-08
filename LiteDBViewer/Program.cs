@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
+using LiteDB;
 
 namespace LiteDBViewer
 {
@@ -17,17 +21,7 @@ namespace LiteDBViewer
             var forms = new List<Form>();
             if (args != null && args.Length > 0)
             {
-                foreach (var arg in args)
-                {
-                    try
-                    {
-                        forms.Add(new MainForm(arg));
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, arg, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                forms.AddRange(args.Select(OpenDatabase).Where(form => form != null));
                 if (forms.Count == 0)
                 {
                     return;
@@ -46,17 +40,7 @@ namespace LiteDBViewer
                 {
                     return;
                 }
-                foreach (var fileName in ofd.FileNames)
-                {
-                    try
-                    {
-                        forms.Add(new MainForm(fileName));
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                forms.AddRange(ofd.FileNames.Select(OpenDatabase).Where(form => form != null));
             }
             foreach (var form in forms)
             {
@@ -64,6 +48,88 @@ namespace LiteDBViewer
                 form.Activate();
             }
             Application.Run(new MultiFormApplicationContext(forms.ToArray()));
+        }
+
+        private static Form OpenDatabase(string fileName)
+        {
+            return OpenDatabase(fileName, null);
+        }
+
+        private static Form OpenDatabase(string fileName, string password)
+        {
+            try
+            {
+                return new MainForm(fileName, password);
+            }
+            catch (LiteException ex)
+            {
+                if (ex.ErrorCode == LiteException.DATABASE_WRONG_PASSWORD)
+                {
+                    MessageBox.Show(ex.Message, fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var passwordForm = new PasswordForm();
+                    return passwordForm.ShowDialog() != DialogResult.OK
+                        ? null
+                        : OpenDatabase(fileName, passwordForm.EnteredPassword);
+                }
+                var moreInfo = string.Empty;
+                switch (ex.ErrorCode)
+                {
+                    case LiteException.INVALID_DATABASE:
+                        if (DetectIs090(fileName))
+                        {
+                            moreInfo =
+                                @"Databases created by LiteDB v0.9 are not supported for viewing. Consider upgrading the files.";
+                        }
+                        else if (DetectIs104(fileName))
+                        {
+                            moreInfo =
+                                @"Databases created by LiteDB v1 are not supported for viewing. Consider upgrading the files.";
+                        }
+                        break;
+                    case LiteException.INVALID_DATABASE_VERSION:
+                        moreInfo =
+                            @"Databases created by LiteDB v2.0.0-rc are not supported for viewing. Consider upgrading the files.";
+                        break;
+                }
+                MessageBox.Show(
+                    ex.Message + (string.IsNullOrEmpty(moreInfo) ? string.Empty : Environment.NewLine + moreInfo),
+                    fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    @"Selected file is not a valid LiteDB Database file." + Environment.NewLine + ex.Message, fileName,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+
+        private static bool DetectIs090(string fileName)
+        {
+            using (var s = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                var header = new byte[4096];
+                if (s.Length >= header.Length)
+                {
+                    s.Read(header, 0, header.Length);
+                    return header[44] == 3; // FILE_VERSION
+                }
+            }
+            return false;
+        }
+
+        private static bool DetectIs104(string fileName)
+        {
+            using (var s = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                var header = new byte[4096];
+                if (s.Length >= header.Length)
+                {
+                    s.Read(header, 0, header.Length);
+                    return header[45] == 4; // FILE_VERSION
+                }
+            }
+            return false;
         }
     }
 }

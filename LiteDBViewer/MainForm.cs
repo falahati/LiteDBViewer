@@ -14,11 +14,29 @@ namespace LiteDBViewer
     {
         private const int CollectionsResultLimit = 100;
         private readonly LiteDatabase _db;
-        public MainForm(string filename)
+        private readonly string _fileName;
+        private readonly bool _encrypted;
+
+        public MainForm(string fileName, string password = null)
         {
-            _db = new LiteDatabase(filename);
+            if (fileName.Contains(";") || fileName.Contains("="))
+            {
+                throw new ArgumentException(
+                    "Bad file name. Please make sure that there is no ';' or '=' character in your file's full address.");
+            }
+            if (password?.Contains(";") == true || password?.Contains("=") == true)
+            {
+                throw new ArgumentException(
+                    "Bad password string. Please make sure that there is no ';' or '=' character in your password.");
+            }
+
+            _encrypted = !string.IsNullOrWhiteSpace(password);
+            _fileName = Path.GetFullPath(fileName);
+            _db = new LiteDatabase((_encrypted ? string.Empty : $"password={password};") + $"filename={_fileName};");
+
             InitializeComponent();
-            txt_filename.Text = Path.GetFullPath(filename);
+
+            txt_filename.Text = _fileName + (_encrypted ? " [ENCRYPTED]" : string.Empty);
             foreach (var collection in _db.GetCollectionNames())
             {
                 lb_Collections.Items.Add(collection);
@@ -184,7 +202,12 @@ namespace LiteDBViewer
 
         private void Info_Click(object sender, EventArgs e)
         {
-            var infos = new Dictionary<string, BsonValue> {{"DbVersion", new BsonValue((int) _db.DbVersion)}};
+            var infos = new Dictionary<string, BsonValue>
+            {
+                {"DatabaseVersion", new BsonValue((int) _db.DbVersion)},
+                {"FileName", new BsonValue(_fileName)},
+                {"Encrypted", new BsonValue(_encrypted)}
+            };
             foreach (var collectionName in _db.GetCollectionNames())
             {
                 infos.Add($"[{collectionName}] Stats", _db.Run($"db.{collectionName}.stats"));
