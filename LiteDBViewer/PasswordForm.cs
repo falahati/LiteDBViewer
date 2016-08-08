@@ -15,7 +15,6 @@ namespace LiteDBViewer
         private void PasswordForm_Load(object sender, EventArgs e)
         {
             Activate();
-            txt_password.Focus();
         }
 
         private void Ok_Click(object sender, EventArgs e)
@@ -32,6 +31,11 @@ namespace LiteDBViewer
                 txt_password.Text = string.Empty;
             }
             DialogResult = DialogResult.OK;
+        }
+
+        private void PasswordForm_Shown(object sender, EventArgs e)
+        {
+            txt_password.Focus();
         }
     }
 }

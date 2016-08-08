@@ -92,6 +92,7 @@
             this.Text = "Enter the Database password";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.PasswordForm_Load);
+            this.Shown += new System.EventHandler(this.PasswordForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
