@@ -23,20 +23,9 @@ namespace LiteDBViewer
 
         public MainForm(string fileName, string password = null)
         {
-            if (fileName.Contains(";") || fileName.Contains("="))
-            {
-                throw new ArgumentException(
-                    "Bad file name. Please make sure that there is no ';' or '=' character in your file's full address.");
-            }
-            if (password?.Contains(";") == true || password?.Contains("=") == true)
-            {
-                throw new ArgumentException(
-                    "Bad password string. Please make sure that there is no ';' or '=' character in your password.");
-            }
-
             _encrypted = !string.IsNullOrWhiteSpace(password);
             _fileName = Path.GetFullPath(fileName);
-            _db = new LiteDatabase(_encrypted ? $"password={password};filename={_fileName}" : _fileName);
+            _db = new LiteDatabase(_encrypted ? $"password=\"{password}\";filename=\"{_fileName}\"" : _fileName);
 
             InitializeComponent();
 
