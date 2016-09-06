@@ -108,6 +108,9 @@ namespace LiteDBViewer
                                     case BsonType.Binary:
                                         dr[property.Key] = $"[BINARY({property.Value.AsBinary.Length})]";
                                         break;
+                                    case BsonType.DateTime:
+                                        dr[property.Key] = property.Value.AsDateTime.ToString("yyyy-MM-ddd HH:mm:ss.fff");
+                                        break;
                                     default:
                                         dr[property.Key] = property.Value.ToString();
                                         break;
