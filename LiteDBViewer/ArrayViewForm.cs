@@ -52,6 +52,12 @@ namespace LiteDBViewer
                         contextMenu.MenuItems.Add(new MenuItem("View String",
                             (o, args) => new StringViewForm(item.AsString).ShowDialog(this)));
                         break;
+                    case BsonType.DateTime:
+                        itemString = item.AsDateTime.ToString("yyyy-MM-ddd HH:mm:ss.fff");
+                        contextMenu = new ContextMenu();
+                        contextMenu.MenuItems.Add(new MenuItem("View String",
+                            (o, args) => new StringViewForm(item.AsDateTime.ToString("yyyy-MM-ddd HH:mm:ss.fff")).ShowDialog(this)));
+                        break;
                     default:
                         itemString = item.ToString();
                         break;
