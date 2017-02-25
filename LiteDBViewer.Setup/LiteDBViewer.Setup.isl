@@ -343,6 +343,7 @@
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{82E6D4B8-541F-4C12-A7BF-D0B71DDA1DC0}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>LiteDBViewer.Primary_output</td><td>{8597C149-FF7F-4BB7-A93B-7C1294FA1126}</td><td>INSTALLDIR</td><td>2</td><td/><td>litedbviewer.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>LiteDBViewerVersionSelector.Primary_output</td><td>{72D921CA-6E08-4389-917D-CC9FD712CBF1}</td><td>INSTALLDIR</td><td>2</td><td/><td>litedbviewerversionselector.</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1054,6 +1055,7 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>INSTALLDIR</td><td>LiteDBViewer.Primary_output</td></row>
+		<row><td>INSTALLDIR</td><td>LiteDBViewerVersionSelector.Primary_output</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1146,13 +1148,14 @@
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>LITEDB_VIEWER_2</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>LITEDB_VIEWER_3</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LITEDB_VIEWER</td><td>ProgramFilesFolder</td><td>LITEDB~1|LiteDB Viewer</td><td/><td>0</td><td/></row>
 		<row><td>LITEDB_VIEWER_2</td><td>ProgramFilesFolder</td><td>LITEDB~1|LiteDB Viewer 2</td><td/><td>0</td><td/></row>
+		<row><td>LITEDB_VIEWER_3</td><td>ProgramFilesFolder</td><td>LITEDB~1|LiteDB Viewer 3</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>FALAHATI.NET</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
@@ -1849,7 +1852,8 @@
 		<row><td>NewExtension1</td><td>LiteDBViewer.Primary_output</td><td/><td/><td>AlwaysInstall</td></row>
 		<row><td>NewExtension2</td><td>LiteDBViewer.Primary_output</td><td/><td/><td>AlwaysInstall</td></row>
 		<row><td>NewExtension3</td><td>LiteDBViewer.Primary_output</td><td/><td/><td>AlwaysInstall</td></row>
-		<row><td>db</td><td>LiteDBViewer.Primary_output</td><td>litedbviewer2.databasefile</td><td/><td>AlwaysInstall</td></row>
+		<row><td>db</td><td>LiteDBViewerVersionSelector.Primary_output</td><td>litedbviewerversionselector.databasefile</td><td/><td>AlwaysInstall</td></row>
+		<row><td>db3</td><td>LiteDBViewer.Primary_output</td><td>litedbviewer3.databasefile</td><td/><td>AlwaysInstall</td></row>
 	</table>
 
 	<table name="Feature">
@@ -1873,6 +1877,7 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>AlwaysInstall</td><td>LiteDBViewer.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>LiteDBViewerVersionSelector.Primary_output</td></row>
 	</table>
 
 	<table name="File">
@@ -1888,6 +1893,7 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>litedbviewer.primary_output</td><td>LiteDBViewer.Primary_output</td><td>LiteDBViewer.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;LiteDBViewer&gt;|Built</td><td>3</td><td/></row>
+		<row><td>litedbviewerversionselector.</td><td>LiteDBViewerVersionSelector.Primary_output</td><td>LiteDBViewerVersionSelector.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;LiteDBViewerVersionSelector&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2031,6 +2037,7 @@
 		<col def="S0">Miscellaneous</col>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_F34E2E19_2507_4253_889D_589BB00E656A_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>LiteDBViewer.Primary_output</td><td/><td/><td>_345F6FC2_01EC_4F9C_A7B1_801F04DDC98B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>LiteDBViewerVersionSelector.Primary_output</td><td/><td/><td>_6DD79057_2F9E_49C9_AB7B_B6F85BDCD33B_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2314,6 +2321,7 @@
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectFolder</td><td/><td/><td>1</td></row>
 		<row><td>LiteDBViewer</td><td>LiteDBViewer\LiteDBViewer.csproj</td><td/><td>2</td></row>
+		<row><td>LiteDBViewerVersionSelector</td><td>LiteDBViewerVersionSelector\LiteDBViewerVersionSelector.csproj</td><td/><td>2</td></row>
 		<row><td>ProgramFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>SystemFolder</td><td/><td/><td>1</td></row>
 		<row><td>WindowsFolder</td><td/><td/><td>1</td></row>
@@ -3722,14 +3730,18 @@
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-2086347445</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td>http://www.falahati.net</td><td>0</td><td/><td>-2086371957</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Falahati.net</td><td>0</td><td/><td>-2086386293</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>LiteDB Viewer 2</td><td>0</td><td/><td>-610006761</td></row>
-		<row><td>ID_STRING4</td><td>1033</td><td>LiteDB Viewer 2</td><td>0</td><td/><td>-610002665</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>LiteDB Viewer 2 Installer</td><td>0</td><td/><td>-609998569</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>LiteDB Viewer 3</td><td>0</td><td/><td>-920300433</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>LiteDB Viewer 3</td><td>0</td><td/><td>-920300433</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>LiteDB Viewer 3 Installer</td><td>0</td><td/><td>-920296337</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>Project's Github Page</td><td>0</td><td/><td>-2086363765</td></row>
 		<row><td>ID_STRING7</td><td>1033</td><td>https://github.com/falahati/LiteDBViewer/issues</td><td>0</td><td/><td>-2086343285</td></row>
-		<row><td>ID_STRING8</td><td>1033</td><td>LITEDB~1|LiteDB Viewer 2</td><td>0</td><td/><td>-609965769</td></row>
+		<row><td>ID_STRING8</td><td>1033</td><td>LITEDB~1|LiteDB Viewer 3</td><td>0</td><td/><td>-920285647</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-2086347445</td></row>
 		<row><td>NEW_STRING1</td><td>1033</td><td>db</td><td>0</td><td/><td>-2086381524</td></row>
+		<row><td>NEW_STRING2</td><td>1033</td><td>db3</td><td>0</td><td/><td>-920264079</td></row>
+		<row><td>NEW_STRING3</td><td>1033</td><td>db2</td><td>0</td><td/><td>-920309103</td></row>
+		<row><td>NEW_STRING4</td><td>1033</td><td>db3</td><td>0</td><td/><td>-920305007</td></row>
+		<row><td>NEW_STRING5</td><td>1033</td><td>db</td><td>0</td><td/><td>-920300911</td></row>
 	</table>
 
 	<table name="ISSwidtagProperty">
@@ -3844,6 +3856,10 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
 		<row><td>_1F7E76FC_1D8B_41E5_A045_38AD4A120011</td><td/><td>&lt;VSSolutionFolder&gt;\LiteDBViewer\logo.ico</td><td>0</td></row>
+		<row><td>_219C5000_4998_4C15_B805_57028684DB4C</td><td/><td>&lt;VSSolutionFolder&gt;\LiteDBViewer\logo.ico</td><td>0</td></row>
+		<row><td>_447D0E92_67F0_4A84_B481_9D23D148B67A</td><td/><td>&lt;VSSolutionFolder&gt;\LiteDBViewer\logo.ico</td><td>0</td></row>
+		<row><td>_5D5C1D88239E4E93AD3A586210514E6B.exe</td><td/><td>E:\Personal\Open-Source Projects\LiteDBViewer\LiteDBViewer\bin\Release\LiteDBViewer.exe</td><td>0</td></row>
+		<row><td>_B998458B9BAB4CCCB4E32310C9CE2506.exe</td><td/><td>E:\Personal\Open-Source Projects\LiteDBViewer\LiteDBViewer\bin\Release\LiteDBViewer.exe</td><td>0</td></row>
 		<row><td>_F094E218_E425_4B70_AC66_093EC1A36A9E</td><td/><td>&lt;VSSolutionFolder&gt;\LiteDBViewer\logo.ico</td><td>0</td></row>
 		<row><td>_FD7293EB_5A56_41B8_A546_E4F5D75E382D</td><td/><td>[INSTALLDIR]LiteDBViewer.exe</td><td>0</td></row>
 	</table>
@@ -4279,7 +4295,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S72">Icon_</col>
 		<col def="I2">IconIndex</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>litedbviewer2.databasefile</td><td/><td/><td>LiteDB Viewer 2</td><td>_F094E218_E425_4B70_AC66_093EC1A36A9E</td><td>0</td><td/></row>
+		<row><td>litedbviewer3.databasefile</td><td/><td/><td>LiteDB 3 Database</td><td>_219C5000_4998_4C15_B805_57028684DB4C</td><td>0</td><td/></row>
+		<row><td>litedbviewerversionselector.databasefile</td><td/><td/><td>LiteDB Database</td><td>_447D0E92_67F0_4A84_B481_9D23D148B67A</td><td>0</td><td/></row>
 	</table>
 
 	<table name="Property">
@@ -4359,9 +4376,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]LiteDBViewer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{BC3A0419-3B32-4F63-B218-D24F4C25D3BC}</td><td/></row>
-		<row><td>ProductName</td><td>LiteDB Viewer 2</td><td/></row>
-		<row><td>ProductVersion</td><td>2.0.4.0</td><td/></row>
+		<row><td>ProductCode</td><td>{6EFB147B-92A8-4F04-BE51-6D2A8EFB40F7}</td><td/></row>
+		<row><td>ProductName</td><td>LiteDB Viewer 3</td><td/></row>
+		<row><td>ProductVersion</td><td>3.0.1.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4377,7 +4394,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;ISACTIONPROP1</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
-		<row><td>UpgradeCode</td><td>{3BA18088-0874-4E3F-BE6E-A34B6AF756FD}</td><td/></row>
+		<row><td>UpgradeCode</td><td>{F00B78B2-02D6-4298-8D9B-D75F4CDFCAE0}</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Change</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>
@@ -4646,7 +4663,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">ActionProperty</col>
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
-		<row><td>{3BA18088-0874-4E3F-BE6E-A34B6AF756FD}</td><td>2.0.0.0</td><td>2.0.4.0</td><td>1033</td><td>256</td><td/><td>ISACTIONPROP1</td><td>UpgradeEntry</td></row>
+		<row><td>{F00B78B2-02D6-4298-8D9B-D75F4CDFCAE0}</td><td>3.0.1.0</td><td>3.0.1.0</td><td>1033</td><td>256</td><td/><td>ISACTIONPROP1</td><td>UpgradeEntry</td></row>
 	</table>
 
 	<table name="Verb">
@@ -4655,7 +4672,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="I2">Sequence</col>
 		<col def="L255">Command</col>
 		<col def="L255">Argument</col>
-		<row><td>db</td><td>open</td><td/><td>View with LiteDB Viewer 2</td><td>"%1"</td></row>
+		<row><td>db</td><td>open</td><td/><td>View with LiteDB Viewer</td><td>"%1"</td></row>
+		<row><td>db3</td><td>open</td><td/><td>View with LiteDB Viewer 3</td><td>"%1"</td></row>
 	</table>
 
 	<table name="_Validation">

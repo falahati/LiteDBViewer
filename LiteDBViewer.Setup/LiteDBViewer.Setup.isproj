@@ -33,5 +33,9 @@
 			<Name>LiteDBViewer</Name>
 			<Project>{6A754752-6732-43CD-B316-F17961B4D525}</Project>
 		</ProjectReference>
+		<ProjectReference Include="..\LiteDBViewerVersionSelector\LiteDBViewerVersionSelector.csproj">
+			<Name>LiteDBViewerVersionSelector</Name>
+			<Project>{BD07FE19-27B9-480B-B39A-F6D640167013}</Project>
+		</ProjectReference>
 	</ItemGroup>
 </Project>
