@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using LiteDB;
+using FileMode = System.IO.FileMode;
 
 namespace LiteDBViewer
 {
@@ -19,7 +20,7 @@ namespace LiteDBViewer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var forms = new List<Form>();
-            if (args != null && args.Length > 0)
+            if ((args != null) && (args.Length > 0))
             {
                 forms.AddRange(args.Select(OpenDatabase).Where(form => form != null));
                 if (forms.Count == 0)
@@ -37,7 +38,7 @@ namespace LiteDBViewer
                     Title =
                         $@"Open LiteDB Database File - LiteDB Viewer v{
                             Assembly.GetExecutingAssembly().GetName().Version}",
-                    Filter = $"LiteDB v{Assembly.GetAssembly(typeof (LiteDatabase)).GetName().Version.Major} Files|*.*"
+                    Filter = $@"LiteDB v{Assembly.GetAssembly(typeof(LiteDatabase)).GetName().Version.Major} Files|*.*"
                 };
 
                 if (ofd.ShowDialog() != DialogResult.OK)
@@ -54,19 +55,19 @@ namespace LiteDBViewer
             return OpenDatabase(fileName, null);
         }
 
-        private static Form OpenDatabase(string fileName, string password)
+        private static Form OpenDatabase(string fileName, string password, bool upgrade = false)
         {
             try
             {
-                return new MainForm(fileName, password);
+                return new MainForm(fileName, password, upgrade);
             }
-            catch (LiteException ex)
+            catch (LiteException liteException)
             {
-                if (ex.ErrorCode == LiteException.DATABASE_WRONG_PASSWORD)
+                if (liteException.ErrorCode == LiteException.DATABASE_WRONG_PASSWORD)
                 {
                     if (!string.IsNullOrEmpty(password))
                     {
-                        MessageBox.Show(ex.Message, fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(liteException.Message, fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     var passwordForm = new PasswordForm();
                     return passwordForm.ShowDialog() != DialogResult.OK
@@ -74,7 +75,7 @@ namespace LiteDBViewer
                         : OpenDatabase(fileName, passwordForm.EnteredPassword);
                 }
                 var moreInfo = string.Empty;
-                switch (ex.ErrorCode)
+                switch (liteException.ErrorCode)
                 {
                     case LiteException.INVALID_DATABASE:
                         if (DetectIs090(fileName))
@@ -89,18 +90,50 @@ namespace LiteDBViewer
                         }
                         break;
                     case LiteException.INVALID_DATABASE_VERSION:
-                        moreInfo =
-                            @"Databases created by LiteDB v2.0.0-rc are not supported for viewing. Consider upgrading the files.";
+                        if (!upgrade)
+                        {
+                            moreInfo =
+                                @"Databases created by LiteDB v2.0 are not supported for viewing. Consider upgrading the files. Should we try upgrading the file?";
+                            if (
+                                MessageBox.Show(moreInfo, fileName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation,
+                                    MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                            {
+                                var newFileAddress = Path.ChangeExtension(fileName, ".v3" + Path.GetExtension(fileName));
+                                try
+                                {
+                                    File.Copy(fileName, newFileAddress, false);
+                                }
+                                catch (Exception copyExceptionex)
+                                {
+                                    moreInfo = copyExceptionex.Message + Environment.NewLine +
+                                               "Failed to copy the file prior to upgrading.";
+                                    MessageBox.Show(moreInfo, fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return null;
+                                }
+                                return OpenDatabase(newFileAddress, password, true);
+                            }
+                        }
+                        else
+                        {
+                            moreInfo =
+                                @"Databases created by LiteDB v2.0 are not supported for viewing. Consider upgrading the files.";
+                        }
                         break;
                 }
                 MessageBox.Show(
-                    ex.Message + (string.IsNullOrEmpty(moreInfo) ? string.Empty : Environment.NewLine + moreInfo),
+                    liteException.Message +
+                    (string.IsNullOrEmpty(moreInfo) ? string.Empty : Environment.NewLine + moreInfo),
                     fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception ex)
+            catch (NotSupportedException notSupportedException)
+            {
+                MessageBox.Show(notSupportedException.Message, fileName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception exception)
             {
                 MessageBox.Show(
-                    @"Selected file is not a valid LiteDB Database file." + Environment.NewLine + ex.Message, fileName,
+                    @"Selected file is not a valid LiteDB Database file." + Environment.NewLine + exception.Message,
+                    fileName,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return null;

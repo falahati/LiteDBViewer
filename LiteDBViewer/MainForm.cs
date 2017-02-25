@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using LiteDB;
+using LiteDB.Shell;
 
 namespace LiteDBViewer
 {
@@ -21,11 +22,41 @@ namespace LiteDBViewer
 
         private LiteDatabase _db;
 
-        public MainForm(string fileName, string password = null)
+        private static readonly List<ICommand> Commands = new List<ICommand>();
+
+        static MainForm()
+        {
+            var type = typeof(ICommand);
+            var types = typeof(ICommand).Assembly
+                .GetTypes()
+                .Where(p => type.IsAssignableFrom(p) && p.IsClass);
+
+            foreach (var cmd in types)
+            {
+                Commands.Add(Activator.CreateInstance(cmd) as ICommand);
+            }
+        }
+
+        public MainForm(string fileName, string password = null, bool upgrade = false)
         {
             _encrypted = !string.IsNullOrWhiteSpace(password);
             _fileName = Path.GetFullPath(fileName);
-            _db = new LiteDatabase(_encrypted ? $"password=\"{password}\";filename=\"{_fileName}\"" : _fileName);
+            if (upgrade)
+            {
+                if (!LiteEngine.Upgrade(fileName, password, false))
+                {
+                    throw new NotSupportedException("File format do not support upgrade.");
+                }
+            }
+            var args = new List<string>
+            {
+                $"filename=\"{_fileName}\""
+            };
+            if (_encrypted)
+            {
+                args.Add($"password=\"{password}\"");
+            }
+            _db = new LiteDatabase(string.Join(";", args));
 
             InitializeComponent();
 
@@ -55,7 +86,7 @@ namespace LiteDBViewer
             {
                 FillDataGridView(_db.GetCollection(lb_Collections.SelectedItem.ToString())
                     .Find(Query.All(), 0, CollectionsResultLimit));
-                txt_query.Text = $"db.{lb_Collections.SelectedItem}.find limit {CollectionsResultLimit}";
+                txt_query.Text = $@"db.{lb_Collections.SelectedItem}.find limit {CollectionsResultLimit}";
             }
             else if (lb_Collections.SelectedItem?.Equals("[FILESTORAGE]") == true)
             {
@@ -161,7 +192,7 @@ namespace LiteDBViewer
                                         {
                                             RestoreDirectory = true,
                                             Title = @"Save data to file",
-                                            Filter = $"'{extention}' File|*{extention}|All Files|*.*",
+                                            Filter = $@"'{extention}' File|*{extention}|All Files|*.*",
                                             FileName = _fileStorageBinding[dataRowValue].Filename
                                         };
                                         if (sfd.ShowDialog() != DialogResult.OK)
@@ -241,18 +272,33 @@ namespace LiteDBViewer
             try
             {
                 txt_query.Text = query;
+                var resultHolder = new Display();
+                var scanner = new StringScanner(query);
+                var found = false;
+
+                foreach (var command in Commands)
+                {
+                    if (!command.IsCommand(scanner)) continue;
+                    command.Execute(_db.Engine, scanner, resultHolder, null, null);
+                    found = true;
+                    break;
+                }
+                if (!found) throw new Exception("Command not found.");
+                
                 FillDataGridView(null);
-                var result = _db.Run(query);
                 var rows = new List<BsonDocument>();
-                if (result.IsArray)
+                if (resultHolder.LastResult.IsArray)
                 {
                     rows.AddRange(
-                        result.AsArray.Select(
-                            item => item.IsDocument ? item.AsDocument : new BsonDocument().Add("RESULT", result)));
+                        resultHolder.LastResult.AsArray.Select(
+                            item =>
+                                item.IsDocument
+                                    ? item.AsDocument
+                                    : new BsonDocument {{"RESULT", resultHolder.LastResult}}));
                 }
                 else
                 {
-                    rows.Add(new BsonDocument().Add("RESULT", result));
+                    rows.Add(new BsonDocument { { "RESULT", resultHolder.LastResult } });
                 }
                 FillDataGridView(rows);
             }
@@ -266,14 +312,15 @@ namespace LiteDBViewer
         {
             var infos = new Dictionary<string, BsonValue>
             {
-                {"DatabaseVersion", new BsonValue((int) _db.DbVersion)},
+                // ReSharper disable RedundantCast
+                {"Engine.DatabaseVersion", new BsonValue((int) _db.Engine.UserVersion)},
+                {"Engine.CacheSize", new BsonValue((int) _db.Engine.CacheSize)},
+                {"Engine.CacheUsed", new BsonValue((int) _db.Engine.CacheUsed)},
+                {"Engine.Timeout", new BsonValue((int) _db.Engine.Timeout.TotalSeconds)},
                 {"FileName", new BsonValue(_fileName)},
                 {"Encrypted", new BsonValue(_encrypted)}
+                // ReSharper restore RedundantCast
             };
-            foreach (var collectionName in _db.GetCollectionNames())
-            {
-                infos.Add($"[{collectionName}] Stats", _db.Run($"db.{collectionName}.stats"));
-            }
             new DocumentViewForm(new BsonDocument(infos)).ShowDialog();
         }
 
@@ -291,15 +338,14 @@ namespace LiteDBViewer
             {
                 using (var writer = File.CreateText(sfd.FileName))
                 {
-                    var mapper = new BsonMapper().UseCamelCase();
                     foreach (var name in _db.GetCollectionNames())
                     {
                         writer.WriteLine("-- Collection '{0}'", name);
                         var col = _db.GetCollection(name);
                         foreach (var index in col.GetIndexes().Where(x => x.Field != "_id"))
                         {
-                            writer.WriteLine("db.{0}.ensureIndex {1} {2}", name, index.Field,
-                                JsonSerializer.Serialize(mapper.ToDocument(index.Options)));
+                            writer.WriteLine("db.{0}.ensureIndex {1}{2}", name, index.Field,
+                                index.Unique ? " [unique]" : "");
                         }
                         foreach (var doc in col.Find(Query.All()))
                         {
