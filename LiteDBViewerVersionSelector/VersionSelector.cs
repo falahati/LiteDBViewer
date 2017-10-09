@@ -30,6 +30,10 @@ namespace LiteDBViewerVersionSelector
             {
                 return LiteDBVersion.LiteDB_3_0;
             }
+            if (DetectIs40(fileName))
+            {
+                return LiteDBVersion.LiteDB_4_0;
+            }
             return LiteDBVersion.Unknown;
         }
 
@@ -48,6 +52,9 @@ namespace LiteDBViewerVersionSelector
                     break;
                 case LiteDBVersion.LiteDB_3_0:
                     classId = "litedbviewer3.databasefile";
+                    break;
+                case LiteDBVersion.LiteDB_4_0:
+                    classId = "litedbviewer4.databasefile";
                     break;
                 default:
                     throw new LiteDBViewerExecutionException(version);
@@ -125,6 +132,20 @@ namespace LiteDBViewerVersionSelector
         }
 
         private static bool DetectIs30(string fileName)
+        {
+            using (var s = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                var header = new byte[4096];
+                if (s.Length >= header.Length)
+                {
+                    s.Read(header, 0, header.Length);
+                    return header[52] == 7; // FILE_VERSION
+                }
+            }
+            return false;
+        }
+
+        private static bool DetectIs40(string fileName)
         {
             using (var s = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {

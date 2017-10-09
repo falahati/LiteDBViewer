@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using LiteDB;
-using LiteDB.Shell;
 
 namespace LiteDBViewer
 {
@@ -21,22 +20,7 @@ namespace LiteDBViewer
             new Dictionary<BsonDocument, LiteFileInfo>();
 
         private LiteDatabase _db;
-
-        private static readonly List<ICommand> Commands = new List<ICommand>();
-
-        static MainForm()
-        {
-            var type = typeof(ICommand);
-            var types = typeof(ICommand).Assembly
-                .GetTypes()
-                .Where(p => type.IsAssignableFrom(p) && p.IsClass);
-
-            foreach (var cmd in types)
-            {
-                Commands.Add(Activator.CreateInstance(cmd) as ICommand);
-            }
-        }
-
+        
         public MainForm(string fileName, string password = null, bool upgrade = false)
         {
             _encrypted = !string.IsNullOrWhiteSpace(password);
@@ -61,6 +45,12 @@ namespace LiteDBViewer
             InitializeComponent();
 
             txt_filename.Text = _fileName + (_encrypted ? " [ENCRYPTED]" : string.Empty);
+            RefreshCollections();
+        }
+
+        private void RefreshCollections()
+        {
+            lb_Collections.Items.Clear();
             foreach (var collection in _db.GetCollectionNames())
             {
                 if (!collection.Equals("_chunks") && !collection.Equals("_files"))
@@ -272,35 +262,15 @@ namespace LiteDBViewer
             try
             {
                 txt_query.Text = query;
-                var resultHolder = new Display();
-                var scanner = new StringScanner(query);
-                var found = false;
-
-                foreach (var command in Commands)
-                {
-                    if (!command.IsCommand(scanner)) continue;
-                    command.Execute(_db.Engine, scanner, resultHolder, null, null);
-                    found = true;
-                    break;
-                }
-                if (!found) throw new Exception("Command not found.");
-                
                 FillDataGridView(null);
-                var rows = new List<BsonDocument>();
-                if (resultHolder.LastResult.IsArray)
-                {
-                    rows.AddRange(
-                        resultHolder.LastResult.AsArray.Select(
-                            item =>
-                                item.IsDocument
-                                    ? item.AsDocument
-                                    : new BsonDocument {{"RESULT", resultHolder.LastResult}}));
-                }
-                else
-                {
-                    rows.Add(new BsonDocument { { "RESULT", resultHolder.LastResult } });
-                }
-                FillDataGridView(rows);
+                var results = _db.Engine.Run(query);
+                RefreshCollections();
+                FillDataGridView(
+                    results.Select(
+                        item =>
+                            item.IsDocument
+                                ? item.AsDocument
+                                : new BsonDocument(new Dictionary<string, BsonValue> {{"[Result]", item}})));
             }
             catch (Exception ex)
             {

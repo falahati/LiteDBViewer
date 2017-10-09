@@ -42,8 +42,8 @@
       <HintPath>..\packages\JsonPrettyPrinter.1.0.1.1\lib\net35\JsonPrettyPrinterPlus.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LiteDB, Version=3.0.1.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiteDB.3.0.1\lib\net35\LiteDB.dll</HintPath>
+    <Reference Include="LiteDB, Version=4.0.0.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiteDB.4.0.0-beta2\lib\net40\LiteDB.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -56,72 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\BaseCollection.cs">
-      <Link>LiteDB.Shell\Commands\Collections\BaseCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Bulk.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Bulk.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Count.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Count.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Delete.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Delete.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Drop.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Drop.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\DropIndex.cs">
-      <Link>LiteDB.Shell\Commands\Collections\DropIndex.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\EnsureIndex.cs">
-      <Link>LiteDB.Shell\Commands\Collections\EnsureIndex.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Find.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Find.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Indexes.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Indexes.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Insert.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Insert.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Max.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Max.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Min.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Min.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Rename.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Rename.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Collections\Update.cs">
-      <Link>LiteDB.Shell\Commands\Collections\Update.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\ICommand.cs">
-      <Link>LiteDB.Shell\Commands\ICommand.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Storage\BaseStorage.cs">
-      <Link>LiteDB.Shell\Commands\Storage\BaseStorage.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Storage\Delete.cs">
-      <Link>LiteDB.Shell\Commands\Storage\Delete.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Storage\Download.cs">
-      <Link>LiteDB.Shell\Commands\Storage\Download.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Storage\Find.cs">
-      <Link>LiteDB.Shell\Commands\Storage\Find.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Storage\Update.cs">
-      <Link>LiteDB.Shell\Commands\Storage\Update.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Commands\Storage\Upload.cs">
-      <Link>LiteDB.Shell\Commands\Storage\Upload.cs</Link>
-    </Compile>
-    <Compile Include="..\LiteDB\LiteDB.Shell\Utils\StringExtensions.cs">
-      <Link>LiteDB.Shell\Utils\StringExtensions.cs</Link>
-    </Compile>
     <Compile Include="ArrayViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,9 +74,6 @@
     <Compile Include="DocumentViewForm.Designer.cs">
       <DependentUpon>DocumentViewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LiteDB.Shell\Shell\Display.cs" />
-    <Compile Include="LiteDB.Shell\Shell\Env.cs" />
-    <Compile Include="LiteDB.Shell\Shell\InputCommand.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("LiteDB Viewer 3")]
-[assembly: AssemblyDescription("LiteDB Viewer 3")]
+[assembly: AssemblyTitle("LiteDB Viewer 4")]
+[assembly: AssemblyDescription("LiteDB Viewer 4")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Soroush Falahati")]
-[assembly: AssemblyProduct("LiteDB Viewer 3")]
+[assembly: AssemblyProduct("LiteDB Viewer 4")]
 [assembly: AssemblyCopyright("Copyright © Soroush Falahati 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -35,5 +35,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("3.0.1.0")]
-[assembly: AssemblyFileVersion("3.0.1.0")]
+[assembly: AssemblyVersion("4.0.0.0")]
+[assembly: AssemblyFileVersion("4.0.0.0")]
