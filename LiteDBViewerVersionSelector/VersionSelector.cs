@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -26,52 +27,54 @@ namespace LiteDBViewerVersionSelector
             {
                 return LiteDBVersion.LiteDB_2_0;
             }
-            if (DetectIs30(fileName))
+            if (DetectIs3040(fileName))
             {
-                return LiteDBVersion.LiteDB_3_0;
-            }
-            if (DetectIs40(fileName))
-            {
-                return LiteDBVersion.LiteDB_4_0;
+                return LiteDBVersion.LiteDB_3_0__4_0;
             }
             return LiteDBVersion.Unknown;
         }
 
         public static void OpenLiteDBViewer(string[] fileNames, LiteDBVersion version)
         {
-            var classId = string.Empty;
+            var classIds = new List<string>();
             switch (version)
             {
                 case LiteDBVersion.LiteDB_0_9:
                 case LiteDBVersion.LiteDB_1_0:
-                    classId = "litedbviewer.databasefile";
+                    classIds.Add(@"litedbviewer.databasefile");
                     break;
                 case LiteDBVersion.LiteDB_2_0RC:
                 case LiteDBVersion.LiteDB_2_0:
-                    classId = "litedbviewer2.databasefile";
+                    classIds.Add(@"litedbviewer2.databasefile");
                     break;
-                case LiteDBVersion.LiteDB_3_0:
-                    classId = "litedbviewer3.databasefile";
-                    break;
-                case LiteDBVersion.LiteDB_4_0:
-                    classId = "litedbviewer4.databasefile";
+                case LiteDBVersion.LiteDB_3_0__4_0:
+                    classIds.Add(@"litedbviewer4.databasefile");
+                    classIds.Add(@"litedbviewer3.databasefile");
                     break;
                 default:
                     throw new LiteDBViewerExecutionException(version);
             }
-            try
+            for (var i = 0; i < classIds.Count; i++)
             {
-                var address = Functions.AssocQueryString(AssocStr.Executable, classId);
-                Process.Start(new ProcessStartInfo
+                try
                 {
-                    FileName = address,
-                    Arguments = string.Join(" ", fileNames.Select(fileName => $"\"{fileName}\"").ToArray()),
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception exception)
-            {
-                throw new LiteDBViewerExecutionException(version, exception);
+                    var address = Functions.AssocQueryString(AssocStr.Executable, classIds[i]);
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = address,
+                        Arguments = string.Join(" ", fileNames.Select(fileName => $"\"{fileName}\"").ToArray()),
+                        UseShellExecute = true
+                    });
+                    break;
+                }
+                catch (Exception exception)
+                {
+                    if (i < classIds.Count - 1)
+                    {
+                        continue;
+                    }
+                    throw new LiteDBViewerExecutionException(version, exception);
+                }
             }
         }
 
@@ -131,21 +134,7 @@ namespace LiteDBViewerVersionSelector
             return false;
         }
 
-        private static bool DetectIs30(string fileName)
-        {
-            using (var s = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                var header = new byte[4096];
-                if (s.Length >= header.Length)
-                {
-                    s.Read(header, 0, header.Length);
-                    return header[52] == 7; // FILE_VERSION
-                }
-            }
-            return false;
-        }
-
-        private static bool DetectIs40(string fileName)
+        private static bool DetectIs3040(string fileName)
         {
             using (var s = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {

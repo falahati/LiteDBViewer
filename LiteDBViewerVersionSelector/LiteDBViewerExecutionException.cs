@@ -28,11 +28,8 @@ namespace LiteDBViewerVersionSelector
                 case LiteDBVersion.LiteDB_2_0:
                     versionString = "LiteDBViewer v2.0";
                     break;
-                case LiteDBVersion.LiteDB_3_0:
-                    versionString = "LiteDBViewer v3.0";
-                    break;
-                case LiteDBVersion.LiteDB_4_0:
-                    versionString = "LiteDBViewer v4.0";
+                case LiteDBVersion.LiteDB_3_0__4_0:
+                    versionString = "LiteDBViewer v3.0 or LiteDBViewer v4.0";
                     break;
             }
             return $"Can not find or execute the {versionString}. Please make sure that you have it installed.";

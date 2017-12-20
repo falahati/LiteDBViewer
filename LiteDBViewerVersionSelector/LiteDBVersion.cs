@@ -7,7 +7,6 @@
         LiteDB_1_0,
         LiteDB_2_0RC,
         LiteDB_2_0,
-        LiteDB_3_0,
-        LiteDB_4_0
+        LiteDB_3_0__4_0,
     }
 }
