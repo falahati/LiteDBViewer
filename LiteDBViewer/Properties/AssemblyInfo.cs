@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Soroush Falahati")]
 [assembly: AssemblyProduct("LiteDB Viewer 4")]
-[assembly: AssemblyCopyright("Copyright © Soroush Falahati 2017")]
+[assembly: AssemblyCopyright("Copyright © Soroush Falahati 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -35,5 +35,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("4.1.0.0")]
-[assembly: AssemblyFileVersion("4.1.0.0")]
+[assembly: AssemblyVersion("4.1.4.0")]
+[assembly: AssemblyFileVersion("4.1.4.0")]
