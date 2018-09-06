@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -158,6 +159,14 @@ namespace LiteDBViewer
                                         break;
                                     case BsonType.String:
                                         dr[property.Key] = property.Value.AsString;
+                                        break;
+                                    case BsonType.Int32:
+                                    case BsonType.Int64:
+                                        dr[property.Key] = property.Value.AsInt64.ToString();
+                                        break;
+                                    case BsonType.Decimal:
+                                    case BsonType.Double:
+                                        dr[property.Key] = property.Value.AsDecimal.ToString(CultureInfo.InvariantCulture);
                                         break;
                                     default:
                                         dr[property.Key] = property.Value.ToString();
