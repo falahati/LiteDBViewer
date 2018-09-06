@@ -19,12 +19,29 @@ namespace LiteDBViewer
         private readonly Dictionary<BsonDocument, LiteFileInfo> _fileStorageBinding =
             new Dictionary<BsonDocument, LiteFileInfo>();
 
-        private LiteDatabase _db;
-        
+        private LiteDatabase _database;
+
+        private LiteDatabase Database
+        {
+            get => _database;
+            set
+            {
+                if (_database != value)
+                {
+                    _database = value;
+                    FillDataGridView(null);
+                    RefreshCollections();
+                }
+            }
+        }
+
+        private string ConnectionString { get; }
+
         public MainForm(string fileName, string password = null, bool upgrade = false)
         {
             _encrypted = !string.IsNullOrWhiteSpace(password);
             _fileName = Path.GetFullPath(fileName);
+
             if (upgrade)
             {
                 if (!LiteEngine.Upgrade(fileName, password, false))
@@ -40,18 +57,25 @@ namespace LiteDBViewer
             {
                 args.Add($"password=\"{password}\"");
             }
-            _db = new LiteDatabase(string.Join(";", args));
+
+            ConnectionString = string.Join(";", args);
 
             InitializeComponent();
-
             txt_filename.Text = _fileName + (_encrypted ? " [ENCRYPTED]" : string.Empty);
-            RefreshCollections();
+
+            Database = new LiteDatabase(ConnectionString);
         }
+
 
         private void RefreshCollections()
         {
             lb_Collections.Items.Clear();
-            foreach (var collection in _db.GetCollectionNames())
+
+            if (Database == null)
+            {
+                return;
+            }
+            foreach (var collection in Database.GetCollectionNames())
             {
                 if (!collection.Equals("_chunks") && !collection.Equals("_files"))
                 {
@@ -74,13 +98,13 @@ namespace LiteDBViewer
             if (lb_Collections.SelectedItem != null && !lb_Collections.SelectedItem.Equals("[QUERY]") &&
                 !lb_Collections.SelectedItem.Equals("[FILESTORAGE]"))
             {
-                FillDataGridView(_db.GetCollection(lb_Collections.SelectedItem.ToString())
+                FillDataGridView(Database.GetCollection(lb_Collections.SelectedItem.ToString())
                     .Find(Query.All(), 0, CollectionsResultLimit));
                 txt_query.Text = $@"db.{lb_Collections.SelectedItem}.find limit {CollectionsResultLimit}";
             }
             else if (lb_Collections.SelectedItem?.Equals("[FILESTORAGE]") == true)
             {
-                foreach (var fileInfo in _db.FileStorage.FindAll())
+                foreach (var fileInfo in Database.FileStorage.FindAll())
                 {
                     _fileStorageBinding.Add(fileInfo.AsDocument, fileInfo);
                 }
@@ -248,10 +272,10 @@ namespace LiteDBViewer
             if (disposing)
             {
                 components?.Dispose();
-                if (_db != null)
+                if (Database != null)
                 {
-                    _db.Dispose();
-                    _db = null;
+                    Database.Dispose();
+                    Database = null;
                 }
             }
             base.Dispose(disposing);
@@ -263,7 +287,7 @@ namespace LiteDBViewer
             {
                 txt_query.Text = query;
                 FillDataGridView(null);
-                var results = _db.Engine.Run(query);
+                var results = Database.Engine.Run(query);
                 RefreshCollections();
                 FillDataGridView(
                     results.Select(
@@ -283,10 +307,10 @@ namespace LiteDBViewer
             var infos = new Dictionary<string, BsonValue>
             {
                 // ReSharper disable RedundantCast
-                {"Engine.DatabaseVersion", new BsonValue((int) _db.Engine.UserVersion)},
-                {"Engine.CacheSize", new BsonValue((int) _db.Engine.CacheSize)},
-                {"Engine.CacheUsed", new BsonValue((int) _db.Engine.CacheUsed)},
-                {"Engine.Timeout", new BsonValue((int) _db.Engine.Timeout.TotalSeconds)},
+                {"Engine.DatabaseVersion", new BsonValue((int) Database.Engine.UserVersion)},
+                {"Engine.CacheSize", new BsonValue((int) Database.Engine.CacheSize)},
+                {"Engine.CacheUsed", new BsonValue((int) Database.Engine.CacheUsed)},
+                {"Engine.Timeout", new BsonValue((int) Database.Engine.Timeout.TotalSeconds)},
                 {"FileName", new BsonValue(_fileName)},
                 {"Encrypted", new BsonValue(_encrypted)}
                 // ReSharper restore RedundantCast
@@ -308,10 +332,10 @@ namespace LiteDBViewer
             {
                 using (var writer = File.CreateText(sfd.FileName))
                 {
-                    foreach (var name in _db.GetCollectionNames())
+                    foreach (var name in Database.GetCollectionNames())
                     {
                         writer.WriteLine("-- Collection '{0}'", name);
-                        var col = _db.GetCollection(name);
+                        var col = Database.GetCollection(name);
                         foreach (var index in col.GetIndexes().Where(x => x.Field != "_id"))
                         {
                             writer.WriteLine("db.{0}.ensureIndex {1}{2}", name, index.Field,
@@ -329,6 +353,11 @@ namespace LiteDBViewer
             {
                 MessageBox.Show(ex.Message, @"Dumping Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btn_reload_Click(object sender, EventArgs e)
+        {
+            Database = new LiteDatabase(ConnectionString);
         }
     }
 }

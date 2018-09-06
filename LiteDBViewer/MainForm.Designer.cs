@@ -27,6 +27,7 @@
             this.btn_info = new System.Windows.Forms.Button();
             this.btn_export = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btn_reload = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -43,7 +44,7 @@
             this.lb_Collections.ItemHeight = 15;
             this.lb_Collections.Location = new System.Drawing.Point(0, 16);
             this.lb_Collections.Name = "lb_Collections";
-            this.lb_Collections.Size = new System.Drawing.Size(180, 261);
+            this.lb_Collections.Size = new System.Drawing.Size(180, 420);
             this.lb_Collections.TabIndex = 3;
             this.lb_Collections.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
             // 
@@ -54,7 +55,7 @@
             this.dataGridView.Location = new System.Drawing.Point(0, 16);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(476, 261);
+            this.dataGridView.Size = new System.Drawing.Size(690, 420);
             this.dataGridView.TabIndex = 5;
             this.dataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
             this.dataGridView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
@@ -66,7 +67,7 @@
             this.txt_query.Font = new System.Drawing.Font("Courier New", 9F);
             this.txt_query.Location = new System.Drawing.Point(12, 71);
             this.txt_query.Name = "txt_query";
-            this.txt_query.Size = new System.Drawing.Size(660, 21);
+            this.txt_query.Size = new System.Drawing.Size(874, 21);
             this.txt_query.TabIndex = 1;
             this.txt_query.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
@@ -119,14 +120,14 @@
             this.txt_filename.Location = new System.Drawing.Point(12, 28);
             this.txt_filename.Name = "txt_filename";
             this.txt_filename.ReadOnly = true;
-            this.txt_filename.Size = new System.Drawing.Size(608, 21);
+            this.txt_filename.Size = new System.Drawing.Size(796, 21);
             this.txt_filename.TabIndex = 7;
             // 
             // btn_info
             // 
             this.btn_info.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_info.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_info.Location = new System.Drawing.Point(626, 28);
+            this.btn_info.Location = new System.Drawing.Point(840, 28);
             this.btn_info.Name = "btn_info";
             this.btn_info.Size = new System.Drawing.Size(20, 21);
             this.btn_info.TabIndex = 8;
@@ -138,7 +139,7 @@
             // 
             this.btn_export.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_export.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_export.Location = new System.Drawing.Point(652, 28);
+            this.btn_export.Location = new System.Drawing.Point(866, 28);
             this.btn_export.Name = "btn_export";
             this.btn_export.Size = new System.Drawing.Size(20, 21);
             this.btn_export.TabIndex = 9;
@@ -164,15 +165,28 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
-            this.splitContainer1.Size = new System.Drawing.Size(660, 277);
+            this.splitContainer1.Size = new System.Drawing.Size(874, 436);
             this.splitContainer1.SplitterDistance = 180;
             this.splitContainer1.TabIndex = 10;
+            // 
+            // btn_reload
+            // 
+            this.btn_reload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_reload.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_reload.Location = new System.Drawing.Point(814, 28);
+            this.btn_reload.Name = "btn_reload";
+            this.btn_reload.Size = new System.Drawing.Size(20, 21);
+            this.btn_reload.TabIndex = 11;
+            this.btn_reload.Text = "↻";
+            this.btn_reload.UseVisualStyleBackColor = true;
+            this.btn_reload.Click += new System.EventHandler(this.btn_reload_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 383);
+            this.ClientSize = new System.Drawing.Size(898, 542);
+            this.Controls.Add(this.btn_reload);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.btn_export);
             this.Controls.Add(this.btn_info);
@@ -211,6 +225,7 @@
         private System.Windows.Forms.Button btn_info;
         private System.Windows.Forms.Button btn_export;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button btn_reload;
     }
 }
 
