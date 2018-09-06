@@ -156,6 +156,9 @@ namespace LiteDBViewer
                                     case BsonType.DateTime:
                                         dr[property.Key] = property.Value.AsDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
                                         break;
+                                    case BsonType.String:
+                                        dr[property.Key] = property.Value.AsString;
+                                        break;
                                     default:
                                         dr[property.Key] = property.Value.ToString();
                                         break;
