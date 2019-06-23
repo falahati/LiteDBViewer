@@ -17,12 +17,15 @@ namespace LiteDBViewer
         private readonly bool _encrypted;
         private readonly string _fileName;
 
+        internal string _currentCollectionName;
+        internal string _currentColumnName;
+
         private readonly Dictionary<BsonDocument, LiteFileInfo> _fileStorageBinding =
             new Dictionary<BsonDocument, LiteFileInfo>();
 
         private LiteDatabase _database;
 
-        private LiteDatabase Database
+        internal LiteDatabase Database
         {
             get => _database;
             set
@@ -62,11 +65,11 @@ namespace LiteDBViewer
             ConnectionString = string.Join(";", args);
 
             InitializeComponent();
+            dataGridView.ReadOnly = cb_cells_readOnly.Checked;
             txt_filename.Text = _fileName + (_encrypted ? " [ENCRYPTED]" : string.Empty);
 
             Database = new LiteDatabase(ConnectionString);
         }
-
 
         private void RefreshCollections()
         {
@@ -91,6 +94,11 @@ namespace LiteDBViewer
             Text = Text.Replace("{APPVERSION}", Assembly.GetExecutingAssembly().GetName().Version.ToString())
                 .Replace("{DBVERSION}", Assembly.GetAssembly(typeof (LiteDatabase)).GetName().Version.ToString());
             Activate();
+        }
+
+        internal void CallListBoxSelectedIndexChange()
+        {
+            listBox_SelectedIndexChanged(null, null);
         }
 
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -188,14 +196,17 @@ namespace LiteDBViewer
                 var currentMouseOver = dataGridView.HitTest(e.X, e.Y);
                 if (currentMouseOver.RowIndex >= 0)
                 {
-                    var dataRowValue =
-                        ((dataGridView.Rows[currentMouseOver.RowIndex].DataBoundItem as DataRowView)?.Row as
-                            LiteDataRow)?.UnderlyingValue;
+                    var dataRow = ((dataGridView.Rows[currentMouseOver.RowIndex].DataBoundItem as DataRowView)?.Row as LiteDataRow);
+                    var dataRowValue = dataRow?.UnderlyingValue;
+                    _currentColumnName = dataGridView.Columns[currentMouseOver.ColumnIndex].Name;
+                    _currentCollectionName = lb_Collections.SelectedItem.ToString();
+
                     if (dataRowValue != null)
                     {
                         var m = new ContextMenu();
                         m.MenuItems.Add(new MenuItem("View Row as Object",
                             (o, args) => new DocumentViewForm(dataRowValue.AsDocument).ShowDialog(this)));
+
                         if (_fileStorageBinding.ContainsKey(dataRowValue))
                         {
                             m.MenuItems.Add("-");
@@ -234,13 +245,13 @@ namespace LiteDBViewer
                         }
                         if (currentMouseOver.ColumnIndex >= 0)
                         {
-                            var cell = dataRowValue[dataGridView.Columns[currentMouseOver.ColumnIndex].Name];
+                            var cell = dataRowValue[_currentColumnName];
                             switch (cell.Type)
                             {
                                 case BsonType.String:
                                     m.MenuItems.Add("-");
-                                    m.MenuItems.Add(new MenuItem("View String",
-                                        (o, args) => new StringViewForm(cell.AsString).ShowDialog(this)));
+                                    m.MenuItems.Add(new MenuItem("View String (can be modified)",
+                                        (o, args) => new StringViewForm(cell.AsString, false, dataRowValue) { Owner = this }.ShowDialog(this)));
                                     break;
                                 case BsonType.Document:
                                     m.MenuItems.Add("-");
@@ -257,6 +268,97 @@ namespace LiteDBViewer
                                     m.MenuItems.Add(new MenuItem("View Binary",
                                         (o, args) => new BinaryViewForm(cell.AsBinary).ShowDialog(this)));
                                     break;
+                            }
+
+                            if (!dataGridView.ReadOnly)
+                            {
+                                switch (cell.Type)
+                                {
+                                    case BsonType.String:
+                                    case BsonType.Double:
+                                    case BsonType.DateTime:
+                                    case BsonType.Int32:
+                                    case BsonType.Int64:
+                                    case BsonType.Boolean:
+                                    case BsonType.Null:
+                                        m.MenuItems.Add("-");
+                                        m.MenuItems.Add(new MenuItem($"Save Changes (\"{_currentColumnName}\")",
+                                        (o, args) =>
+                                        {
+                                            if (dataRow.ItemArray[currentMouseOver.ColumnIndex].ToString() == "[NULL]")
+                                                dataRowValue[_currentColumnName] = null;
+                                            else if (cell != null)
+                                            {
+                                                switch (cell.Type)
+                                                {
+                                                    case BsonType.String:
+                                                        dataRowValue[_currentColumnName] = dataRow.ItemArray[currentMouseOver.ColumnIndex].ToString() ?? cell;
+                                                        break;
+                                                    case BsonType.Double:
+                                                        if (double.TryParse(dataRow.ItemArray[currentMouseOver.ColumnIndex].ToString().Replace('.', ','), out var d))
+                                                            dataRowValue[_currentColumnName] = d;
+                                                        else
+                                                        {
+                                                            MessageBox.Show($"Can't convert input value to \"{cell.Type.ToString()}\" type.", "Save Cell Changes Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                            CallListBoxSelectedIndexChange();
+                                                            return;
+                                                        }
+                                                        break;
+                                                    case BsonType.DateTime:
+                                                        if (DateTime.TryParse(dataRow.ItemArray[currentMouseOver.ColumnIndex].ToString(), out var dt))
+                                                            dataRowValue[_currentColumnName] = dt;
+                                                        else
+                                                        {
+                                                            MessageBox.Show($"Can't convert input value to \"{cell.Type.ToString()}\" type.", "Save Cell Changes Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                            CallListBoxSelectedIndexChange();
+                                                            return;
+                                                        }
+                                                        break;
+                                                    case BsonType.Int32:
+                                                        if (int.TryParse(dataRow.ItemArray[currentMouseOver.ColumnIndex].ToString(), out var i))
+                                                            dataRowValue[_currentColumnName] = i;
+                                                        else
+                                                        {
+                                                            MessageBox.Show($"Can't convert input value to \"{cell.Type.ToString()}\" type.", "Save Cell Changes Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                            CallListBoxSelectedIndexChange();
+                                                            return;
+                                                        }
+                                                        break;
+                                                    case BsonType.Int64:
+                                                        if (long.TryParse(dataRow.ItemArray[currentMouseOver.ColumnIndex].ToString(), out var l))
+                                                            dataRowValue[_currentColumnName] = l;
+                                                        else
+                                                        {
+                                                            MessageBox.Show($"Can't convert input value to \"{cell.Type.ToString()}\" type.", "Save Cell Changes Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                            CallListBoxSelectedIndexChange();
+                                                            return;
+                                                        }
+                                                        break;
+                                                    case BsonType.Boolean:
+                                                        if (bool.TryParse(dataRow.ItemArray[currentMouseOver.ColumnIndex].ToString(), out var b))
+                                                            dataRowValue[_currentColumnName] = b;
+                                                        else
+                                                        {
+                                                            MessageBox.Show($"Can't convert input value to \"{cell.Type.ToString()}\" type.", "Save Cell Changes Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                            CallListBoxSelectedIndexChange();
+                                                            return;
+                                                        }
+                                                        break;
+                                                    case BsonType.Null:
+                                                        dataRowValue[_currentColumnName] = dataRow.ItemArray[currentMouseOver.ColumnIndex].ToString() ?? cell;
+                                                        break;
+                                                    default:
+                                                        MessageBox.Show($"Can't save changes for \"{cell.Type.ToString()}\" type.", "Save Cell Changes Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                        CallListBoxSelectedIndexChange();
+                                                        return;
+                                                }
+                                                Database.GetCollection(_currentCollectionName).Update(dataRowValue.AsDocument);
+                                                CallListBoxSelectedIndexChange();
+                                                MessageBox.Show($"The value for cell \"{_currentColumnName}\" has been updated.", "Save Cell Changes Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            }
+                                        }));
+                                        break;
+                                }
                             }
                         }
                         m.Show(dataGridView, new Point(e.X, e.Y));
@@ -370,6 +472,11 @@ namespace LiteDBViewer
         private void btn_reload_Click(object sender, EventArgs e)
         {
             Database = new LiteDatabase(ConnectionString);
+        }
+
+        private void cb_cells_readOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            dataGridView.ReadOnly = cb_cells_readOnly.Checked;
         }
     }
 }
