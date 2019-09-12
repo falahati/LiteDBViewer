@@ -2,6 +2,7 @@
 [![](https://img.shields.io/github/license/falahati/LiteDBViewer.svg?style=flat-square)](https://github.com/falahati/LiteDBViewer/blob/master/LICENSE)
 [![](https://img.shields.io/github/commit-activity/y/falahati/LiteDBViewer.svg?style=flat-square)](https://github.com/falahati/LiteDBViewer/commits/master)
 [![](https://img.shields.io/github/issues/falahati/LiteDBViewer.svg?style=flat-square)](https://github.com/falahati/LiteDBViewer/issues)
+**LiteDB v5** contains an internal database browser and editor named [LiteDB Studio](https://github.com/mbdavid/LiteDB#v5). Therefore, this project will not continue into version 5 of LiteDB and if you need a viewer for your database please consider using LiteDB Studio. At the time of writing this statement, LiteDB 5 is still in pre-release and LiteDB Studio won't open files created by LiteDB v4 or any other version except for v5. Read more here: [LiteDB v5](https://github.com/mbdavid/LiteDB#v5)
 
 LiteDB Viewer is a simple tool that let you open a LiteDB database file and view its contents.
 
