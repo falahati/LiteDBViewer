@@ -9,7 +9,7 @@ Therefore, this project will not continue into version 5 of LiteDB and if you ne
 
 At the time of writing this statement, LiteDB 5 is still in pre-release and LiteDB Studio won't open files created by LiteDB v4 or earlier; so this tool can be used for database files created by those versions. 
 
-Read more here: [LiteDB v5](https://github.com/mbdavid/LiteDB#v5)
+Read more here: [LiteDB v5](https://github.com/mbdavid/LiteDB.Studio)
 
 ---
 
