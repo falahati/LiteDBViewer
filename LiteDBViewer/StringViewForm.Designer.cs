@@ -39,6 +39,7 @@
             this.webBrowserPanel = new System.Windows.Forms.Panel();
             this.rb_base64 = new System.Windows.Forms.RadioButton();
             this.btn_dump = new System.Windows.Forms.Button();
+            this.btn_upd_value = new System.Windows.Forms.Button();
             this.webBrowserPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -169,12 +170,24 @@
             this.btn_dump.UseVisualStyleBackColor = true;
             this.btn_dump.Click += new System.EventHandler(this.Dump_Click);
             // 
+            // btn_upd_value
+            // 
+            this.btn_upd_value.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_upd_value.Location = new System.Drawing.Point(590, 370);
+            this.btn_upd_value.Name = "btn_upd_value";
+            this.btn_upd_value.Size = new System.Drawing.Size(105, 23);
+            this.btn_upd_value.TabIndex = 9;
+            this.btn_upd_value.Text = "&Update value";
+            this.btn_upd_value.UseVisualStyleBackColor = true;
+            this.btn_upd_value.Click += new System.EventHandler(this.btn_upd_value_Click);
+            // 
             // StringViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btn_close;
             this.ClientSize = new System.Drawing.Size(704, 461);
+            this.Controls.Add(this.btn_upd_value);
             this.Controls.Add(this.btn_dump);
             this.Controls.Add(this.rb_base64);
             this.Controls.Add(this.btn_close);
@@ -211,5 +224,6 @@
         private System.Windows.Forms.Panel webBrowserPanel;
         private System.Windows.Forms.RadioButton rb_base64;
         private System.Windows.Forms.Button btn_dump;
+        private System.Windows.Forms.Button btn_upd_value;
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using JsonPrettyPrinterPlus;
 using JsonPrettyPrinterPlus.JsonPrettyPrinterInternals;
+using LiteDB;
 
 namespace LiteDBViewer
 {
@@ -11,13 +12,29 @@ namespace LiteDBViewer
     {
         private readonly string _string;
 
+        private BsonDocument _dataRowValue;
+
         public StringViewForm()
         {
             InitializeComponent();
         }
 
-        public StringViewForm(string value, bool json = false) : this()
+        public StringViewForm(string value, bool json = false, BsonDocument dataRowValue = null) : this()
         {
+            _dataRowValue = dataRowValue;
+            if (_dataRowValue != null)
+            {
+                textBox.ReadOnly = false;
+                btn_upd_value.Enabled = true;
+                btn_upd_value.Visible = true;
+            }
+            else
+            {
+                textBox.ReadOnly = true;
+                btn_upd_value.Enabled = false;
+                btn_upd_value.Visible = false;
+            }
+
             _string = value;
             if (json)
             {
@@ -118,6 +135,21 @@ namespace LiteDBViewer
             Enabled = false;
             ShowData();
             Enabled = true;
+        }
+
+        private void btn_upd_value_Click(object sender, EventArgs e)
+        {
+            var mainForm = this.Owner as MainForm;
+            if (mainForm != null)
+            {
+                _dataRowValue[mainForm._currentColumnName] = textBox.Text;
+                mainForm.Database.GetCollection(mainForm._currentCollectionName).Update(_dataRowValue.AsDocument);
+                mainForm.CallListBoxSelectedIndexChange();
+                MessageBox.Show($"The value for cell \"{mainForm._currentColumnName}\" has been updated.", "Save Cell Changes Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
+                MessageBox.Show("Operation cannot be performed.", "Save Cell Changes Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }
